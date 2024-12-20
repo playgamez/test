@@ -369,7 +369,8 @@ h6 {
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
-    font-size: 17px;
+    font-size: 18px; /* Adjusted to match the rest of the site */
+    font-family: Arial, sans-serif; /* Match with the site's font */
 }
 
 .top-bar a:hover {
@@ -378,6 +379,6 @@ h6 {
 }
 
 .top-bar a.active {
-    background-color: #4CAF50; /* Keeping the active link color for distinction */
+    background-color: #575fcf; /* Same as hover color to avoid green */
     color: white;
 }
