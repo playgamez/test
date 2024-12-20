@@ -348,9 +348,10 @@ h6 {
 }
 
 .game-category {
-    margin: 20px 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: transparent;
     padding: 10px;
-    border: 1px solid #555;
-    border-radius: 10px;
-    background-color: #2a2a2a;
+    border-radius: 10px
 }
