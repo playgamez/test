@@ -358,34 +358,6 @@
             } 
         });
 
-    document.addEventListener("DOMContentLoaded", function() {
-        console.log("DOM fully loaded and parsed");
-
-        // Get all categories
-        const categories = document.querySelectorAll('.category');
-        console.log("Categories found:", categories.length);
-        
-        // Loop through each category and check if it has any visible children
-        categories.forEach((category, index) => {
-            console.log(`Checking category ${index + 1}`);
-            const links = category.querySelectorAll('a');
-            console.log(`Links found in category ${index + 1}:`, links.length);
-
-            let isVisible = Array.from(links).some(link => {
-                const visible = link.offsetParent !== null;
-                console.log(`Link ID: ${link.id}, Visible: ${visible}`);
-                return visible;
-            });
-
-            if (isVisible) {
-                category.style.display = "block";
-                console.log(`Category ${index + 1} is visible`);
-            } else {
-                category.style.display = "none";
-                console.log(`Category ${index + 1} is hidden`);
-            }
-        });
-    });
 </script>
 
 

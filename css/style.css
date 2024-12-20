@@ -357,11 +357,3 @@ h6 {
 }
 
 
-
-.link {
-    display: none; /* Initially hide all links */
-}
-
-.link.active {
-    display: block; /* Only display links that match the search criteria */
-}
