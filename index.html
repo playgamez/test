@@ -357,7 +357,21 @@
                 search_it(); 
             } 
         });
-    </script>
+
+
+    document.addEventListener("DOMContentLoaded", function() {
+        // Get all categories
+        const categories = document.querySelectorAll('.category');
+        
+        // Loop through each category and check if it's empty
+        categories.forEach(category => {
+            if (category.innerHTML.trim() !== "") {
+                category.style.display = "block";
+            }
+        });
+    });
+</script>
+
  
 
          

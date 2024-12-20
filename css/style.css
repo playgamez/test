@@ -355,3 +355,10 @@ h6 {
     padding: 10px;
     border-radius: 10px
 }
+
+.category {
+    display: none;
+}
+.category:not(:empty) {
+    display: block;
+}
