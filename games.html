@@ -14,8 +14,8 @@
 <body> 
 
     <div class="top-bar">
-        <a class="active" href="#home">Home</a>
-        <a href="#games">Games</a>
+        <a class="active" href="index.html">Home</a>
+        <a href="games.html">Games</a>
         <a href="#proxy">Proxy</a>
         <a href="#settings">Settings</a>
     </div>
@@ -37,6 +37,24 @@
     <script>
         particlesJS.load('particles-js', 'particles.js/particles.json', function() {
             console.log('particles.js loaded');
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const currentLocation = window.location.pathname;
+            const homeTab = document.getElementById("homeTab");
+            const gamesTab = document.getElementById("gamesTab");
+            const proxyTab = document.getElementById("proxyTab");
+            const settingsTab = document.getElementById("settingsTab");
+
+            if (currentLocation.includes("games.html")) {
+                gamesTab.classList.add("active");
+            } else if (currentLocation.includes("proxy")) {
+                proxyTab.classList.add("active");
+            } else if (currentLocation.includes("settings")) {
+                settingsTab.classList.add("active");
+            } else {
+                homeTab.classList.add("active");
+            }
         });
     </script>
 
