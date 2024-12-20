@@ -358,15 +358,16 @@
             } 
         });
 
-
     document.addEventListener("DOMContentLoaded", function() {
         // Get all categories
         const categories = document.querySelectorAll('.category');
         
-        // Loop through each category and check if it's empty
+        // Loop through each category and check if it has any visible children
         categories.forEach(category => {
-            if (category.innerHTML.trim() !== "") {
+            if (category.querySelectorAll('a:visible').length > 0) {
                 category.style.display = "block";
+            } else {
+                category.style.display = "none";
             }
         });
     });
