@@ -356,4 +356,28 @@ h6 {
     border-radius: 10px
 }
 
+.top-bar {
+    background-color: #1a1a1a; /* Match with the site's dark background */
+    overflow: hidden;
+    padding: 10px 0;
+}
 
+.top-bar a {
+    float: left;
+    display: block;
+    color: #ffffff; /* White text color for visibility */
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.top-bar a:hover {
+    background-color: #575fcf; /* A hover color that adds a bit of contrast */
+    color: white;
+}
+
+.top-bar a.active {
+    background-color: #4CAF50; /* Keeping the active link color for distinction */
+    color: white;
+}
