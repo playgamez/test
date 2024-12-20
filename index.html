@@ -372,8 +372,9 @@
             console.log(`Links found in category ${index + 1}:`, links.length);
 
             let isVisible = Array.from(links).some(link => {
-                console.log(`Link ID: ${link.id}, Visible: ${link.offsetParent !== null}`);
-                return link.offsetParent !== null; // Check if the link is visible
+                const visible = link.offsetParent !== null;
+                console.log(`Link ID: ${link.id}, Visible: ${visible}`);
+                return visible;
             });
 
             if (isVisible) {
