@@ -363,7 +363,7 @@ h6 {
 }
 
 .top-bar a {
-    float: right;
+    float: left;
     display: block;
     color: #ffffff; /* White text color for visibility */
     text-align: center;
