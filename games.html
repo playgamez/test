@@ -267,8 +267,8 @@
                 var randomGame = games[Math.floor(Math.random() * games.length)];
                 window.location.href = randomGame.href;
             };
-        
-            function search_it() {
+
+            function search_it() { 
     var tag = document.getElementById("tags").value;
     var what_search = document.getElementById("search").value;
     var game_list = document.querySelectorAll(".link");
@@ -281,7 +281,7 @@
         good_games.forEach(game => {
             document.getElementById(game.id).style.display = "flex";
         });
-    } else {
+    } else { 
         var active_list = document.querySelectorAll(".active");
         active_list.forEach(active => {
             document.getElementById(active.id).classList.remove("active");
