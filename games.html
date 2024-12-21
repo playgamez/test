@@ -1,37 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
-<head> 
-    <meta name="viewport" content="width=device-width, initial-scale=1"> 
-    <meta charset="UTF-8"> 
-    <title>Home | Schoology</title> 
-    <link rel="icon" type="image/x-icon" href="./icons/schoology2.png"> 
-    <meta property="og:title" content="Play unblocked games online"> 
-    <meta property="og:description" content="SCHOOLOGY"> 
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <title>Games | Schoology</title>
+    <link rel="icon" type="image/x-icon" href="./icons/schoology2.png">
+    <meta property="og:title" content="Play unblocked games online">
+    <meta property="og:description" content="SCHOOLOGY">
     <link rel="stylesheet" href="css/style.css">
     <script src="https://kit.fontawesome.com/d0c5025972.js" crossorigin="anonymous"></script>
     <meta name="theme-color" content="var(--bgColor)">
-</head> 
-<body> 
-
+</head>
+<body>
+    <!-- Top Bar -->
     <div class="top-bar">
-        <a class="active" href="index.html">Home</a>
-        <a href="games.html">Games</a>
-        <a href="#proxy">Proxy</a>
-        <a href="#settings">Settings</a>
+        <a id="homeTab" href="index.html">Home</a>
+        <a id="gamesTab" href="games.html">Games</a>
+        <a id="proxyTab" href="#proxy">Proxy</a>
+        <a id="settingsTab" href="#settings">Settings</a>
     </div>
 
     <div id="particles-js"></div>
-
-    <!--Page Content Below--> 
-    <img id="userPhoto" class="animated rubberBand fast" src="icons/logo.png" alt="Your Name's Photo"> 
-    <h1 class="animated jello game_title">Eli's Unblocked Games</h1> 
-    <p class="game_title">New update!  Update 1.9! 6 More Games, Added Button to Go to The Blog. Deleted some blocked games </p> 
-
-  
+    <!-- Page Content Below -->
+    <img id="userPhoto" class="animated rubberBand fast" src="icons/logo.png" alt="Your Name's Photo">
+    <h1 class="animated jello game_title">Eli's Unblocked Games</h1>
+    <p class="game_title">New update! Update 1.9! 6 More Games, Added Button to Go to The Blog. Deleted some blocked games</p>
 
     <div class="centered-container">
         <img src="https://visit-counter.vercel.app/counter.png?page=https%3A%2F%2Fplaygamez.github.io%2Fbruno%2F&s=40&c=ffffff&bg=00000000&no=6&ff=karla&tb=Visit+Counter%3A+&ta=" alt="Visit Counter:">
-    </div> 
+    </div>
 
     <script src="particles.js/particles.min.js"></script>
     <script>
@@ -39,6 +36,7 @@
             console.log('particles.js loaded');
         });
 
+        // Highlight the active tab
         document.addEventListener("DOMContentLoaded", function() {
             const currentLocation = window.location.pathname;
             const homeTab = document.getElementById("homeTab");
@@ -46,6 +44,13 @@
             const proxyTab = document.getElementById("proxyTab");
             const settingsTab = document.getElementById("settingsTab");
 
+            // Remove 'active' class from all tabs
+            homeTab.classList.remove("active");
+            gamesTab.classList.remove("active");
+            proxyTab.classList.remove("active");
+            settingsTab.classList.remove("active");
+
+            // Add 'active' class to the current tab
             if (currentLocation.includes("games.html")) {
                 gamesTab.classList.add("active");
             } else if (currentLocation.includes("proxy")) {
@@ -57,6 +62,7 @@
             }
         });
     </script>
+
 
 <!-- Christmas Break Countdown -->
 <div id="countdown"></div>
