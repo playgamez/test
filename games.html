@@ -268,48 +268,62 @@
                 window.location.href = randomGame.href;
             };
         
-            function search_it() { 
+            function search_it() {
                 var tag = document.getElementById("tags").value;
                 var what_search = document.getElementById("search").value;
+        
+                console.log("Search term:", what_search);
+                console.log("Tag selected:", tag);
+        
+                // Lists of different categories
                 var pop_list = document.querySelectorAll(".pop");
                 var high_list = document.querySelectorAll(".high");
                 var two_list = document.querySelectorAll(".two");
         
-                if(what_search === "" && tag == "all"){ 
-                    for(var i=0; i<game_list.length; i++){ 
+                // Reset all categories to be visible first
+                const categories = document.querySelectorAll('.category-container');
+                categories.forEach(category => {
+                    category.style.display = "block";
+                });
+        
+                if (what_search === "" && tag == "all") { 
+                    // Show all games if no search input and the tag is "all"
+                    console.log("Showing all games as no search input and tag is 'all'");
+                    for (var i = 0; i < game_list.length; i++) { 
                         document.getElementById(game_list[i].id).style.display = "flex";
                     } 
-                    for(var i=0; i<good_games.length; i++){ 
+                    for (var i = 0; i < good_games.length; i++) { 
                         document.getElementById(good_games[i].id).style.display = "flex";
                     } 
                 } else { 
-                    var active_list = document.querySelectorAll(".active");
-                    for(var i=0; i<active_list.length; i++){ 
-                        document.getElementById(active_list[i].id).classList.remove("active");
-                    } 
-                    for(var i=0; i<game_list.length; i++){ 
+                    // Hide all games initially
+                    console.log("Hiding all games initially for filtering");
+                    for (var i = 0; i < game_list.length; i++) { 
                         document.getElementById(game_list[i].id).style.display = "none";
                     } 
-                    for(var i=0; i<good_games.length; i++){ 
+                    for (var i = 0; i < good_games.length; i++) { 
                         document.getElementById(good_games[i].id).style.display = "none";
-                    } 
-                    for(var i=0; i<game_list.length; i++){ 
-                        item = game_list[i].id.toLowerCase();
-                        item2 = document.getElementById(game_list[i].id);
-                        if(item.includes(what_search.toLowerCase())){ 
-                            if(tag == "pop" && item2.classList.contains("pop")){ 
+                    }
+        
+                    // Show only the games that match the search criteria
+                    for (var i = 0; i < game_list.length; i++) { 
+                        var item = game_list[i].id.toLowerCase();
+                        var item2 = document.getElementById(game_list[i].id);
+                        if (item.includes(what_search.toLowerCase())) { 
+                            if (tag == "pop" && item2.classList.contains("pop")) { 
+                                console.log(`Showing ${item2.id} as it matches 'pop' and search term`);
                                 document.getElementById(game_list[i].id).classList.add("active");
-                            } 
-                            else if(tag == "two" && item2.classList.contains("two")){ 
+                            } else if (tag == "two" && item2.classList.contains("two")) { 
+                                console.log(`Showing ${item2.id} as it matches 'two' and search term`);
                                 document.getElementById(game_list[i].id).classList.add("active");
-                            } 
-                            else if(tag == "high" && item2.classList.contains("high")){ 
+                            } else if (tag == "high" && item2.classList.contains("high")) { 
+                                console.log(`Showing ${item2.id} as it matches 'high' and search term`);
                                 document.getElementById(game_list[i].id).classList.add("active");
-                            } 
-                            else if(tag == "bad" && item2.classList.contains("bad")){ 
+                            } else if (tag == "bad" && item2.classList.contains("bad")) { 
+                                console.log(`Showing ${item2.id} as it matches 'bad' and search term`);
                                 document.getElementById(game_list[i].id).classList.add("active");
-                            } 
-                            else if(tag == "all"){ 
+                            } else if (tag == "all") { 
+                                console.log(`Showing ${item2.id} as it matches 'all' and search term`);
                                 document.getElementById(game_list[i].id).classList.add("active");
                             } 
                         } 
@@ -321,27 +335,42 @@
             }
         
             function updateCategoryVisibility() {
-    const categories = document.querySelectorAll('.category-container');
-
-    categories.forEach((category, index) => {
-        const links = category.querySelectorAll('a');
+                const categories = document.querySelectorAll('.category-container');
         
-        // Check if at least one link is visible
-        let isVisible = Array.from(links).some(link => link.offsetParent !== null);
+                categories.forEach((category, index) => {
+                    const links = category.querySelectorAll('a');
         
-        // Update the category visibility
-        if (isVisible) {
-            category.style.display = "block";
-            console.log(`Category ${index} is visible.`);
-        } else {
-            category.style.display = "none";
-            console.log(`Category ${index} is hidden.`);
-        }
-    });
-
-    console.log("Category visibility updated.");
-}
-
+                    // Check if at least one link is visible
+                    let isVisible = Array.from(links).some(link => link.offsetParent !== null);
+        
+                    // Update the category visibility
+                    if (isVisible) {
+                        category.style.display = "block";
+                        console.log(`Category ${index} is visible.`);
+                    } else {
+                        category.style.display = "none";
+                        console.log(`Category ${index} is hidden.`);
+                    }
+                });
+        
+                console.log("Category visibility updated.");
+            }
+        
+            var game_list = document.querySelectorAll(".link"); 
+            var good_games = document.querySelectorAll(".glink"); 
+            var search_enter = document.getElementById("search"); 
+            search_enter.addEventListener("keyup", (event) => { 
+                if (event.key === "Enter") { 
+                    search_it(); 
+                } 
+            });
+        
+            // Initial check when DOM is fully loaded
+            document.addEventListener("DOMContentLoaded", function() {
+                updateCategoryVisibility();
+            });
+        </script>
+        
 
         
             var game_list = document.querySelectorAll(".link"); 
