@@ -268,74 +268,82 @@
                 window.location.href = randomGame.href;
             };
 
-            function search_it() { 
-    var tag = document.getElementById("tags").value;
-    var what_search = document.getElementById("search").value;
-    var game_list = document.querySelectorAll(".link");
-    var good_games = document.querySelectorAll(".glink");
+            document.addEventListener("DOMContentLoaded", function() {
+    // Define the search_it function
+    function search_it() { 
+        var tag = document.getElementById("tags").value;
+        var what_search = document.getElementById("search").value;
+        var game_list = document.querySelectorAll(".link");
+        var good_games = document.querySelectorAll(".glink");
+        var pop_list = document.querySelectorAll(".pop");
+        var high_list = document.querySelectorAll(".high");
+        var two_list = document.querySelectorAll(".two");
 
-    if (what_search === "" && tag == "all") {
-        game_list.forEach(game => {
-            document.getElementById(game.id).style.display = "flex";
-        });
-        good_games.forEach(game => {
-            document.getElementById(game.id).style.display = "flex";
-        });
-    } else { 
-        var active_list = document.querySelectorAll(".active");
-        active_list.forEach(active => {
-            document.getElementById(active.id).classList.remove("active");
-        });
-
-        game_list.forEach(game => {
-            document.getElementById(game.id).style.display = "none";
-        });
-        good_games.forEach(game => {
-            document.getElementById(game.id).style.display = "none";
-        });
-
-        game_list.forEach(game => {
-            var item = game.id.toLowerCase();
-            var item2 = document.getElementById(game.id);
-            if (item.includes(what_search.toLowerCase())) {
-                if (tag == "pop" && item2.classList.contains("pop")) {
-                    document.getElementById(game.id).classList.add("active");
-                } else if (tag == "two" && item2.classList.contains("two")) {
-                    document.getElementById(game.id).classList.add("active");
-                } else if (tag == "high" && item2.classList.contains("high")) {
-                    document.getElementById(game.id).classList.add("active");
-                } else if (tag == "bad" && item2.classList.contains("bad")) {
-                    document.getElementById(game.id).classList.add("active");
-                } else if (tag == "all") {
-                    document.getElementById(game.id).classList.add("active");
-                }
+        if (what_search === "" && tag == "all") {
+            for (var i = 0; i < game_list.length; i++) { 
+                document.getElementById(game_list[i].id).style.display = "flex";
             }
+            for (var i = 0; i < good_games.length; i++) { 
+                document.getElementById(good_games[i].id).style.display = "flex";
+            }
+        } else { 
+            var active_list = document.querySelectorAll(".active");
+            for (var i = 0; i < active_list.length; i++) { 
+                document.getElementById(active_list[i].id).classList.remove("active");
+            }
+            for (var i = 0; i < game_list.length; i++) { 
+                document.getElementById(game_list[i].id).style.display = "none";
+            }
+            for (var i = 0; i < good_games.length; i++) { 
+                document.getElementById(good_games[i].id).style.display = "none";
+            }
+            for (var i = 0; i < game_list.length; i++) { 
+                var item = game_list[i].id.toLowerCase();
+                var item2 = document.getElementById(game_list[i].id);
+                if (item.includes(what_search.toLowerCase())) { 
+                    if (tag == "pop" && item2.classList.contains("pop")) { 
+                        document.getElementById(game_list[i].id).classList.add("active");
+                    } 
+                    else if (tag == "two" && item2.classList.contains("two")) { 
+                        document.getElementById(game_list[i].id).classList.add("active");
+                    } 
+                    else if (tag == "high" && item2.classList.contains("high")) { 
+                        document.getElementById(game_list[i].id).classList.add("active");
+                    } 
+                    else if (tag == "bad" && item2.classList.contains("bad")) { 
+                        document.getElementById(game_list[i].id).classList.add("active");
+                    } 
+                    else if (tag == "all") { 
+                        document.getElementById(game_list[i].id).classList.add("active");
+                    } 
+                } 
+            }
+        }
+
+        // Update category visibility after search
+        updateCategoryVisibility();
+    }
+
+    // Define the updateCategoryVisibility function
+    function updateCategoryVisibility() {
+        const categories = document.querySelectorAll('.category-container');
+
+        categories.forEach((category) => {
+            const links = category.querySelectorAll('a');
+            let isVisible = Array.from(links).some(link => link.offsetParent !== null);
+
+            category.style.display = isVisible ? 'block' : 'none';
         });
     }
 
-    // Update category visibility after search
-    updateCategoryVisibility();
-}
-
-function updateCategoryVisibility() {
-    const categories = document.querySelectorAll('.category-container');
-
-    categories.forEach((category) => {
-        const links = category.querySelectorAll('a');
-        let isVisible = Array.from(links).some(link => link.offsetParent !== null);
-
-        category.style.display = isVisible ? 'block' : 'none';
+    // Event listener for search input
+    document.getElementById("search").addEventListener("keyup", (event) => { 
+        if(event.key === "Enter"){ 
+            search_it(); 
+        } 
     });
-}
 
-// Event listener for search input
-document.getElementById("search").addEventListener("keyup", (event) => { 
-    if(event.key === "Enter"){ 
-        search_it(); 
-    } 
-});
-
-// Initial check when DOM is fully loaded
-document.addEventListener("DOMContentLoaded", function() {
+    // Initial check when DOM is fully loaded
     updateCategoryVisibility();
 });
+
