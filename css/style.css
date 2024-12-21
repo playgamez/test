@@ -363,22 +363,22 @@ h6 {
 }
 
 .top-bar a {
-    float: left;
+    float: right;
     display: block;
     color: #ffffff; /* White text color for visibility */
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
     font-size: 18px; /* Adjusted to match the rest of the site */
-    font-family: Arial, sans-serif; /* Match with the site's font */
+    font-family: 'Karla', sans-serif; /* Match with the site's font */
 }
 
 .top-bar a:hover {
-    background-color: #575fcf; /* A hover color that adds a bit of contrast */
+    background-color: #737379; /* A hover color that adds a bit of contrast */
     color: white;
 }
 
 .top-bar a.active {
-    background-color: #575fcf; /* Same as hover color to avoid green */
+    background-color: #737379; /* Same as hover color to avoid green */
     color: white;
 }
