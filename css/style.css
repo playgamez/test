@@ -348,7 +348,7 @@ h6 {
 }
 
 .game-category {
-    display: flex;
+    display: block;
     flex-wrap: wrap;
     justify-content: center;
     background-color: transparent;
@@ -393,7 +393,7 @@ h6 {
 
 
 .category a {
-    display: block; /* Ensure games are displayed as flex items */
+    display: flex; /* Ensure games are displayed as flex items */
     width: 250px; /* Set a specific width for each game item */
     height: 250px; /* Set a specific height for each game item */
     margin: 5px; /* Add margin between game items */
