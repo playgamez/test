@@ -444,3 +444,26 @@ h6 {
     outline: none;
     border-color: #00bb00; /* Hover/focus color */
 }
+
+/* Panic Button Setting Styling */
+.panic-button-setting {
+    margin-top: 20px;
+    font-family: var(--font);
+    color: var(--accentColor);
+}
+
+.panic-button-setting label {
+    margin-right: 10px;
+}
+
+.panic-button-setting input {
+    width: 30px;
+    text-align: center;
+    border: 1px solid #353535;
+    border-radius: 5px;
+    background-color: #292929;
+    color: #fff;
+    padding: 5px;
+    font-size: 16px;
+    font-family: var(--font);
+}
