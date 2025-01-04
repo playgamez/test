@@ -405,10 +405,10 @@ h6 {
     font-size: 1.5em;
     margin-bottom: 10px; /* Adjusts the size and margin for game titles */
 }
-
 /* Centering the dropdown */
 .centered-dropdown {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     margin-top: 20px; /* Adjust the margin to position it vertically */
@@ -445,11 +445,26 @@ h6 {
     border-color: #00bb00; /* Hover/focus color */
 }
 
-/* Panic Button Setting Styling */
-.panic-button-setting {
-    margin-top: 20px;
+/* Mask Dropdown Styling */
+.mask-dropdown {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.mask-dropdown label {
+    margin-right: 10px;
     font-family: var(--font);
     color: var(--accentColor);
+}
+
+/* Panic Button Setting Styling */
+.panic-button-setting {
+    display: flex;
+    align-items: center;
+    font-family: var(--font);
+    color: var(--accentColor);
+    margin-top: 20px;
 }
 
 .panic-button-setting label {
@@ -466,4 +481,11 @@ h6 {
     padding: 5px;
     font-size: 16px;
     font-family: var(--font);
+}
+
+.panic-button-setting input:hover, .panic-button-setting input:focus {
+    filter: brightness(95%);
+    box-shadow: none;
+    outline: none;
+    border-color: #00bb00; /* Hover/focus color */
 }

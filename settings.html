@@ -3,7 +3,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
-    <title>Home | Schoology</title>
+    <title>Settings | Schoology</title>
     <link rel="icon" type="image/x-icon" href="./icons/schoology2.png">
     <meta property="og:title" content="Play unblocked games online">
     <meta property="og:description" content="SCHOOLOGY">
@@ -26,19 +26,23 @@
     <h1 class="animated jello game_title">Eli's Unblocked Games</h1>
     <p class="game_title">New update! Update 1.9! 6 More Games, Added Button to Go to The Blog. Deleted some blocked games</p>
 
-    <!-- Centered Dropdown Menu for Masking Options -->
-    <div class="centered-dropdown">
-        <select class="select-dropdown" id="maskDropdown">
-            <option value="schoology" data-title="Schoology" data-icon="./icons/schoology2.png">Schoology</option>
-            <option value="focus" data-title="Portal" data-icon="./icons/focus.png">Focus</option>
-            <!-- Add more options here -->
-        </select>
-    </div>
+    <!-- Centered Settings -->
+    <div class="centered-settings">
+        <!-- Tab Mask Dropdown Menu -->
+        <div class="mask-dropdown">
+            <label for="maskDropdown">Tab mask:</label>
+            <select class="select-dropdown" id="maskDropdown">
+                <option value="schoology" data-title="Schoology" data-icon="./icons/schoology2.png">Schoology</option>
+                <option value="focus" data-title="Portal" data-icon="./icons/focus.png">Focus</option>
+                <!-- Add more options here -->
+            </select>
+        </div>
 
-    <!-- Panic Button Setting -->
-    <div class="panic-button-setting">
-        <label for="panicButtonKey">Set panic button: </label>
-        <input type="text" id="panicButtonKey" value="`" maxlength="1">
+        <!-- Panic Button Setting -->
+        <div class="panic-button-setting">
+            <label for="panicButtonKey">Set panic button:</label>
+            <input type="text" id="panicButtonKey" value="`" maxlength="1">
+        </div>
     </div>
 
     <script src="particles.js/particles.min.js"></script>
@@ -119,6 +123,7 @@
             });
 
             // Change the title and favicon based on dropdown selection
+            const maskDropdown = document.getElementById('maskDropdown');
             if (maskDropdown) {
                 maskDropdown.addEventListener('change', function() {
                     const selectedOption = maskDropdown.options[maskDropdown.selectedIndex];
