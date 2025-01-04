@@ -18,6 +18,13 @@
         <a id="gamesTab" href="games.html">Games</a>
         <a id="proxyTab" href="#proxy">Proxy</a>
         <a id="settingsTab" href="settings.html">Settings</a>
+        <!-- Dropdown Menu for Masking Options -->
+        <div class="dropdown">
+            <button class="dropbtn">Mask As</button>
+            <div class="dropdown-content">
+                <a href="#" class="mask-option" data-title="Schoology" data-icon="./icons/schoology2.png">Schoology</a>
+            </div>
+        </div>
     </div>
 
     <div id="particles-js"></div>
@@ -56,6 +63,26 @@
             } else {
                 homeTab.classList.add("active");
             }
+        });
+
+        // Change the title and favicon based on dropdown selection
+        document.addEventListener("DOMContentLoaded", function() {
+            const maskOptions = document.querySelectorAll(".mask-option");
+
+            maskOptions.forEach(option => {
+                option.addEventListener("click", function(event) {
+                    event.preventDefault();
+                    const newTitle = this.getAttribute("data-title");
+                    const newIcon = this.getAttribute("data-icon");
+
+                    // Change the title
+                    document.title = newTitle;
+
+                    // Change the favicon
+                    const favicon = document.querySelector("link[rel='icon']");
+                    favicon.href = newIcon;
+                });
+            });
         });
     </script>
 </body>
