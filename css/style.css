@@ -386,7 +386,7 @@ h6 {
 
 
 .category-container {
-    margin-bottom: 20px; /* Ensures a gap between categories */
+    margin-bottom: 100px; /* Ensures a gap between categories */
     display: block; /* Ensures categories are displayed as block elements */
 }
 
