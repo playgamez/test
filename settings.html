@@ -20,6 +20,12 @@
         <a id="settingsTab" href="settings.html">Settings</a>
     </div>
 
+    <div id="particles-js"></div>
+    <!-- Page Content Below -->
+    <img id="userPhoto" class="animated rubberBand fast" src="icons/logo.png" alt="Your Name's Photo">
+    <h1 class="animated jello game_title">Eli's Unblocked Games</h1>
+    <p class="game_title">New update! Update 1.9! 6 More Games, Added Button to Go to The Blog. Deleted some blocked games</p>
+
     <!-- Centered Dropdown Menu for Masking Options -->
     <div class="centered-dropdown">
         <select class="select-dropdown" id="maskDropdown">
@@ -28,12 +34,6 @@
             <!-- Add more options here -->
         </select>
     </div>
-
-    <div id="particles-js"></div>
-    <!-- Page Content Below -->
-    <img id="userPhoto" class="animated rubberBand fast" src="icons/logo.png" alt="Your Name's Photo">
-    <h1 class="animated jello game_title">Eli's Unblocked Games</h1>
-    <p class="game_title">New update! Update 1.9! 6 More Games, Added Button to Go to The Blog. Deleted some blocked games</p>
 
     <script src="particles.js/particles.min.js"></script>
     <script>
@@ -65,16 +65,28 @@
             } else {
                 homeTab.classList.add("active");
             }
-        });
 
-        // Change the title and favicon based on dropdown selection
-        document.addEventListener("DOMContentLoaded", function() {
-            const maskDropdown = document.getElementById("maskDropdown");
+            // Load the saved option from localStorage
+            const savedOption = localStorage.getItem('selectedMaskOption');
+            if (savedOption) {
+                const maskDropdown = document.getElementById('maskDropdown');
+                maskDropdown.value = savedOption;
 
-            maskDropdown.addEventListener("change", function() {
                 const selectedOption = maskDropdown.options[maskDropdown.selectedIndex];
-                const newTitle = selectedOption.getAttribute("data-title");
-                const newIcon = selectedOption.getAttribute("data-icon");
+                const newTitle = selectedOption.getAttribute('data-title');
+                const newIcon = selectedOption.getAttribute('data-icon');
+
+                // Change the title and favicon based on the saved option
+                document.title = newTitle;
+                const favicon = document.querySelector("link[rel='icon']");
+                favicon.href = newIcon;
+            }
+
+            // Change the title and favicon based on dropdown selection
+            maskDropdown.addEventListener('change', function() {
+                const selectedOption = maskDropdown.options[maskDropdown.selectedIndex];
+                const newTitle = selectedOption.getAttribute('data-title');
+                const newIcon = selectedOption.getAttribute('data-icon');
 
                 // Change the title
                 document.title = newTitle;
@@ -82,6 +94,9 @@
                 // Change the favicon
                 const favicon = document.querySelector("link[rel='icon']");
                 favicon.href = newIcon;
+
+                // Save the selected option to localStorage
+                localStorage.setItem('selectedMaskOption', maskDropdown.value);
             });
         });
     </script>

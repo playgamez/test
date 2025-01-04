@@ -376,4 +376,82 @@
             });
         </script>
         
+        <script>
+            // Highlight the active tab
+            document.addEventListener("DOMContentLoaded", function() {
+                const currentLocation = window.location.pathname;
+                const homeTab = document.getElementById("homeTab");
+                const gamesTab = document.getElementById("gamesTab");
+                const proxyTab = document.getElementById("proxyTab");
+                const settingsTab = document.getElementById("settingsTab");
+        
+                // Remove 'active' class from all tabs
+                homeTab.classList.remove("active");
+                gamesTab.classList.remove("active");
+                proxyTab.classList.remove("active");
+                settingsTab.classList.remove("active");
+        
+                // Add 'active' class to the current tab
+                if (currentLocation.includes("games.html")) {
+                    gamesTab.classList.add("active");
+                } else if (currentLocation.includes("proxy")) {
+                    proxyTab.classList.add("active");
+                } else if (currentLocation.includes("settings")) {
+                    settingsTab.classList.add("active");
+                } else {
+                    homeTab.classList.add("active");
+                }
+        
+                // Load the saved option from localStorage
+                const savedOption = localStorage.getItem('selectedMaskOption');
+                if (savedOption) {
+                    const maskDropdown = document.getElementById('maskDropdown');
+                    if (maskDropdown) {
+                        maskDropdown.value = savedOption;
+        
+                        const selectedOption = maskDropdown.options[maskDropdown.selectedIndex];
+                        const newTitle = selectedOption.getAttribute('data-title');
+                        const newIcon = selectedOption.getAttribute('data-icon');
+        
+                        // Change the title and favicon based on the saved option
+                        document.title = newTitle;
+                        const favicon = document.querySelector("link[rel='icon']");
+                        favicon.href = newIcon;
+                    } else {
+                        // Fallback if maskDropdown doesn't exist on this page
+                        const maskDropdownFallback = document.createElement('select');
+                        maskDropdownFallback.innerHTML = `
+                            <option value="schoology" data-title="Schoology" data-icon="./icons/schoology2.png">Schoology</option>
+                            <option value="focus" data-title="Portal" data-icon="./icons/focus.png">Focus</option>
+                        `;
+                        const savedOptionElement = Array.from(maskDropdownFallback.options).find(option => option.value === savedOption);
+                        if (savedOptionElement) {
+                            document.title = savedOptionElement.getAttribute('data-title');
+                            const favicon = document.querySelector("link[rel='icon']");
+                            favicon.href = savedOptionElement.getAttribute('data-icon');
+                        }
+                    }
+                }
+        
+                // Change the title and favicon based on dropdown selection
+                if (maskDropdown) {
+                    maskDropdown.addEventListener('change', function() {
+                        const selectedOption = maskDropdown.options[maskDropdown.selectedIndex];
+                        const newTitle = selectedOption.getAttribute('data-title');
+                        const newIcon = selectedOption.getAttribute('data-icon');
+        
+                        // Change the title
+                        document.title = newTitle;
+        
+                        // Change the favicon
+                        const favicon = document.querySelector("link[rel='icon']");
+                        favicon.href = newIcon;
+        
+                        // Save the selected option to localStorage
+                        localStorage.setItem('selectedMaskOption', maskDropdown.value);
+                    });
+                }
+            });
+        </script>
+        
         

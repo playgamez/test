@@ -56,6 +56,39 @@
             } else {
                 homeTab.classList.add("active");
             }
+
+            // Load the saved option from localStorage
+            const savedOption = localStorage.getItem('selectedMaskOption');
+            if (savedOption) {
+                const maskDropdown = document.getElementById('maskDropdown');
+                maskDropdown.value = savedOption;
+
+                const selectedOption = maskDropdown.options[maskDropdown.selectedIndex];
+                const newTitle = selectedOption.getAttribute('data-title');
+                const newIcon = selectedOption.getAttribute('data-icon');
+
+                // Change the title and favicon based on the saved option
+                document.title = newTitle;
+                const favicon = document.querySelector("link[rel='icon']");
+                favicon.href = newIcon;
+            }
+
+            // Change the title and favicon based on dropdown selection
+            maskDropdown.addEventListener('change', function() {
+                const selectedOption = maskDropdown.options[maskDropdown.selectedIndex];
+                const newTitle = selectedOption.getAttribute('data-title');
+                const newIcon = selectedOption.getAttribute('data-icon');
+
+                // Change the title
+                document.title = newTitle;
+
+                // Change the favicon
+                const favicon = document.querySelector("link[rel='icon']");
+                favicon.href = newIcon;
+
+                // Save the selected option to localStorage
+                localStorage.setItem('selectedMaskOption', maskDropdown.value);
+            });
         });
     </script>
 </body>
