@@ -353,7 +353,7 @@ h6 {
     justify-content: center;
     background-color: transparent;
     padding: 10px;
-    border-radius: 10px
+    border-radius: 10px;
 }
 
 .top-bar {
@@ -391,12 +391,16 @@ h6 {
 }
 
 
-.category {
-    display: block; /* Ensures each category is displayed as a block element */
-    margin-bottom: 10px;
-}
 
 .category a {
-    display: block;
-    margin-bottom: 10px; /* Ensures space between links within categories */
+    display: flex; /* Ensure games are displayed as flex items */
+    width: 250px; /* Set a specific width for each game item */
+    height: 250px; /* Set a specific height for each game item */
+    margin: 5px; /* Add margin between game items */
+    align-items: flex-end; /* Align items at the bottom */
+}
+
+.game_title {
+    font-size: 1.5em;
+    margin-bottom: 10px; /* Adjusts the size and margin for game titles */
 }
