@@ -18,13 +18,15 @@
         <a id="gamesTab" href="games.html">Games</a>
         <a id="proxyTab" href="#proxy">Proxy</a>
         <a id="settingsTab" href="settings.html">Settings</a>
-        <!-- Dropdown Menu for Masking Options -->
-        <div class="dropdown">
-            <button class="dropbtn">Mask As</button>
-            <div class="dropdown-content">
-                <a href="#" class="mask-option" data-title="Schoology" data-icon="./icons/schoology2.png">Schoology</a>
-            </div>
-        </div>
+    </div>
+
+    <!-- Centered Dropdown Menu for Masking Options -->
+    <div class="centered-dropdown">
+        <select class="select-dropdown" id="maskDropdown">
+            <option value="schoology" data-title="Schoology" data-icon="./icons/schoology2.png">Schoology</option>
+            <option value="focus" data-title="Portal" data-icon="./icons/focus.png">Focus</option>
+            <!-- Add more options here -->
+        </select>
     </div>
 
     <div id="particles-js"></div>
@@ -67,21 +69,19 @@
 
         // Change the title and favicon based on dropdown selection
         document.addEventListener("DOMContentLoaded", function() {
-            const maskOptions = document.querySelectorAll(".mask-option");
+            const maskDropdown = document.getElementById("maskDropdown");
 
-            maskOptions.forEach(option => {
-                option.addEventListener("click", function(event) {
-                    event.preventDefault();
-                    const newTitle = this.getAttribute("data-title");
-                    const newIcon = this.getAttribute("data-icon");
+            maskDropdown.addEventListener("change", function() {
+                const selectedOption = maskDropdown.options[maskDropdown.selectedIndex];
+                const newTitle = selectedOption.getAttribute("data-title");
+                const newIcon = selectedOption.getAttribute("data-icon");
 
-                    // Change the title
-                    document.title = newTitle;
+                // Change the title
+                document.title = newTitle;
 
-                    // Change the favicon
-                    const favicon = document.querySelector("link[rel='icon']");
-                    favicon.href = newIcon;
-                });
+                // Change the favicon
+                const favicon = document.querySelector("link[rel='icon']");
+                favicon.href = newIcon;
             });
         });
     </script>
