@@ -385,15 +385,15 @@ h6 {
 
 
 
-
 .category-container {
     margin-bottom: 20px; /* Ensures a gap between categories */
     display: block; /* Ensures categories are displayed as block elements */
-    width: 100%; /* Ensures the categories take up the full width */
 }
+
 
 .category {
     display: block; /* Ensures each category is displayed as a block element */
+    margin-bottom: 10px;
 }
 
 .category a {
