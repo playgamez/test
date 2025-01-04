@@ -382,3 +382,17 @@ h6 {
     background-color: #737379; /* Same as hover color to avoid green */
     color: white;
 }
+
+.category-container {
+    margin-bottom: 20px; /* Ensures a gap between categories */
+}
+
+.category a {
+    display: block;
+    margin-bottom: 10px; /* Ensures space between links within categories */
+}
+
+.game_title {
+    font-size: 1.5em;
+    margin-bottom: 10px; /* Adjusts the size and margin for game titles */
+}

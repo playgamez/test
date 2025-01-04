@@ -64,11 +64,10 @@
     </script>
 
 
-<!-- Christmas Break Countdown -->
 <div id="countdown"></div>
 <script>
     function countdownTimer() {
-        const countDownDate = new Date("Dec 20, 2024 14:25:00").getTime();
+        const countDownDate = new Date("Mar 16, 2025 14:25:00").getTime();
         const now = new Date().getTime();
         const distance = countDownDate - now;
 
@@ -78,16 +77,18 @@
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
         document.getElementById("countdown").innerHTML = 
-            "Christmas Break Countdown: " + days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+            "Spring Break Countdown: " + days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
 
         if (distance < 0) {
             clearInterval(timer);
-            document.getElementById("countdown").innerHTML = "Christmas Break is Here!";
+            document.getElementById("countdown").innerHTML = "Spring Break is Here!";
         }
     }
     
     const timer = setInterval(countdownTimer, 1000);
 </script>
+
+
 
     <div id="links" class="animated fadeInLeft delay-1s games"> 
         <div class="game_title">
@@ -371,20 +372,4 @@
             });
         </script>
         
-
-        
-            var game_list = document.querySelectorAll(".link"); 
-            var good_games = document.querySelectorAll(".glink"); 
-            var search_enter = document.getElementById("search"); 
-            search_enter.addEventListener("keyup", (event) => { 
-                if(event.key === "Enter"){ 
-                    search_it(); 
-                } 
-            });
-        
-            // Initial check when DOM is fully loaded
-            document.addEventListener("DOMContentLoaded", function() {
-                updateCategoryVisibility();
-            });
-        </script>
         
