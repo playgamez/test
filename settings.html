@@ -36,7 +36,7 @@
         <div class="mask-dropdown">
             <label for="maskDropdown">Tab mask:</label>
             <select class="select-dropdown" id="maskDropdown">
-                <option value="schoology" data-title="Schoology" data-icon="./icons/schoology2.png">Schoology</option>
+                <option value="schoology" data-title="Home | Schoology" data-icon="./icons/schoology2.png">Schoology</option>
                 <option value="focus" data-title="Portal" data-icon="./icons/focus.png">Focus</option>
                 <!-- Add more options here -->
             </select>
@@ -128,7 +128,7 @@
                     // Fallback if maskDropdown doesn't exist on this page
                     const maskDropdownFallback = document.createElement('select');
                     maskDropdownFallback.innerHTML = `
-                        <option value="schoology" data-title="Schoology" data-icon="./icons/schoology2.png">Schoology</option>
+                        <option value="schoology" data-title="Home | Schoology" data-icon="./icons/schoology2.png">Schoology</option>
                         <option value="focus" data-title="Portal" data-icon="./icons/focus.png">Focus</option>
                     `;
                     const savedOptionElement = Array.from(maskDropdownFallback.options).find(option => option.value === savedOption);
