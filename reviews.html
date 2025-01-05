@@ -13,15 +13,14 @@
     <script src="panicButton.js"></script> <!-- Include panicButton.js -->
 
     <!-- Firebase App (the core Firebase SDK) -->
-    <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
     <script>
         const firebaseConfig = {
             apiKey: "AIzaSyDlmJ6xkhZ0EeHP89OkQhvgiQp7oFA8vyo",
             authDomain: "reviews-playgamez.firebaseapp.com",
-            databaseURL: "https://reviews-playgamez-default-rtdb.firebaseio.com",
             projectId: "reviews-playgamez",
-            storageBucket: "reviews-playgamez.appspot.com",
+            storageBucket: "reviews-playgamez.firebasestorage.app",
             messagingSenderId: "797570756984",
             appId: "1:797570756984:web:e7d30e710c22216fab188d",
             measurementId: "G-04QCKSGP03"
@@ -32,7 +31,6 @@
         const database = firebase.database();
     </script>
     <style>
-        /* Spinner CSS */
         .spinner {
             border: 4px solid rgba(0,0,0,0.1);
             width: 36px;
@@ -145,7 +143,6 @@
             display: none;
         }
 
-        /* Highlight only the active tab */
         .tab-highlight {
             background-color: #353535;
             color: #fff;
@@ -241,8 +238,8 @@
                 alert('Failed to load reviews.');
             });
 
-            // Star rating functionality
-            stars.forEach(star => {
+                       // Star rating functionality
+                       stars.forEach(star => {
                 star.addEventListener('click', function() {
                     const rating = this.getAttribute('data-rating');
                     document.getElementById('rating').value = rating;
