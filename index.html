@@ -3,7 +3,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
-    <title>Home | Schoology</title>
+    <title>Schoology</title>
     <link rel="icon" type="image/x-icon" href="./icons/schoology2.png">
     <meta property="og:title" content="Play unblocked games online">
     <meta property="og:description" content="SCHOOLOGY">
@@ -42,7 +42,7 @@
     <script>
         particlesJS.load('particles-js', 'particles.js/particles.json', function() {
             console.log('particles.js loaded');
-        });
+    });
 
         // Highlight the active tab
         document.addEventListener("DOMContentLoaded", function() {
@@ -72,12 +72,31 @@
             } else {
                 homeTab.classList.add("active");
             }
+        });
 
 
-        // Load the saved option from localStorage
-        const savedOption = localStorage.getItem('selectedMaskOption');
-        if (savedOption) {
-            // Create a fallback dropdown to read saved options
+  
+</script>
+
+<script>
+        
+    // Load the saved option from localStorage
+    const savedOption = localStorage.getItem('selectedMaskOption');
+    if (savedOption) {
+        const maskDropdown = document.getElementById('maskDropdown');
+        if (maskDropdown) {
+            maskDropdown.value = savedOption;
+
+            const selectedOption = maskDropdown.options[maskDropdown.selectedIndex];
+            const newTitle = selectedOption.getAttribute('data-title');
+            const newIcon = selectedOption.getAttribute('data-icon');
+
+            // Change the title and favicon based on the saved option
+            document.title = newTitle;
+            const favicon = document.querySelector("link[rel='icon']");
+            favicon.href = newIcon;
+        } else {
+            // Fallback if maskDropdown doesn't exist on this page
             const maskDropdownFallback = document.createElement('select');
             maskDropdownFallback.innerHTML = `
                 <option value="schoology" data-title="Schoology" data-icon="./icons/schoology2.png">Schoology</option>
@@ -90,17 +109,27 @@
                 favicon.href = savedOptionElement.getAttribute('data-icon');
             }
         }
+    }
 
-        // Load the saved panic button key from localStorage
-        const savedPanicKey = localStorage.getItem('panicButtonKey') || '`';
+    // Change the title and favicon based on dropdown selection
+    if (maskDropdown) {
+        maskDropdown.addEventListener('change', function() {
+            const selectedOption = maskDropdown.options[maskDropdown.selectedIndex];
+            const newTitle = selectedOption.getAttribute('data-title');
+            const newIcon = selectedOption.getAttribute('data-icon');
 
-        // Add a keydown event listener for the panic button
-        document.addEventListener('keydown', function(event) {
-            if (event.key === savedPanicKey) {
-                window.location.href = 'https://manatee.schoology.com/home';
-            }
+            // Change the title
+            document.title = newTitle;
+
+            // Change the favicon
+            const favicon = document.querySelector("link[rel='icon']");
+            favicon.href = newIcon;
+
+            // Save the selected option to localStorage
+            localStorage.setItem('selectedMaskOption', maskDropdown.value);
         });
-    });
+    }
+
 </script>
 
 </body>
