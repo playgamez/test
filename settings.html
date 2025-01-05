@@ -28,8 +28,8 @@
 
     <!-- Centered Settings -->
     <div class="centered-dropdown">
-        <h2 class="settings-heading">TAB MASKING</h2>
         <!-- Tab Mask Dropdown Menu -->
+        <h2>TAB MASKING</h2>
         <div class="mask-dropdown">
             <label for="maskDropdown">Tab mask:</label>
             <select class="select-dropdown" id="maskDropdown">
@@ -39,8 +39,8 @@
             </select>
         </div>
 
-        <h2 class="settings-heading">PANIC KEY</h2>
         <!-- Panic Button Setting -->
+        <h2>PANIC KEY</h2>
         <div class="panic-button-setting">
             <label for="panicButtonKey">Set panic button:</label>
             <input type="text" id="panicButtonKey" value="`" maxlength="1">
@@ -109,8 +109,12 @@
                 }
             }
 
-            // Save the panic button key to localStorage
+            // Load the saved panic button key from localStorage or use default
             const panicButtonKeyInput = document.getElementById('panicButtonKey');
+            const savedPanicKey = localStorage.getItem('panicButtonKey') || '`';
+            panicButtonKeyInput.value = savedPanicKey;
+
+            // Save the panic button key to localStorage
             panicButtonKeyInput.addEventListener('change', function() {
                 const newPanicKey = this.value;
                 localStorage.setItem('panicButtonKey', newPanicKey);
