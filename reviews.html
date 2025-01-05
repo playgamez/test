@@ -20,10 +20,9 @@
         <a id="homeTab" href="index.html">Home</a>
         <a id="gamesTab" href="games.html">Games</a>
         <a id="proxyTab" href="#proxy">Proxy</a>
+        <a id="settingsTab" href="settings.html">Settings</a>
         <a id="movieTab" href="movie.html">Movies</a>
         <a id="reviewsTab" class="active" href="reviews.html">Reviews</a>
-        <a id="settingsTab" href="settings.html">Settings</a>
-        
     </div>
 
     <!-- Review Form -->
@@ -131,6 +130,7 @@
             const reviewForm = document.getElementById('reviewForm');
             const reviewsList = document.getElementById('reviewsList');
             const stars = document.querySelectorAll('.star-rating .fa-star');
+            let isDeleteMode = false;
 
             // Load reviews from localStorage
             let reviews = JSON.parse(localStorage.getItem('reviews')) || [];
@@ -184,11 +184,13 @@
                         </div>
                         <div>
                             <span class="like-button" data-index="${index}"><i class="fa fa-thumbs-up"></i> ${review.likes}</span>
+                            <span class="delete-button" data-index="${index}" style="display: ${isDeleteMode ? 'inline' : 'none'};"><i class="fa fa-times"></i></span>
                         </div>
                     `;
                     reviewsList.appendChild(reviewDiv);
                 });
                 addLikeButtonListeners();
+                addDeleteButtonListeners();
             }
 
             // Generate star rating HTML
@@ -216,6 +218,32 @@
                     });
                 });
             }
+
+                     // Add event listeners to delete buttons
+                     function addDeleteButtonListeners() {
+                const deleteButtons = document.querySelectorAll('.delete-button');
+                deleteButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        const index = this.getAttribute('data-index');
+                        reviews.splice(index, 1);
+                        localStorage.setItem('reviews', JSON.stringify(reviews));
+                        displayReviews();
+                    });
+                });
+            }
+
+            // Enable delete mode when "d e l e t e" is typed
+            let deleteCode = "";
+            document.addEventListener('keydown', function(event) {
+                deleteCode += event.key.toLowerCase();
+                if (deleteCode.length > 7) {
+                    deleteCode = deleteCode.slice(-7); // Keep the last 7 characters
+                }
+                if (deleteCode === "d e l e t e") {
+                    isDeleteMode = !isDeleteMode;
+                    displayReviews();
+                }
+            });
         });
     </script>
 </body>
