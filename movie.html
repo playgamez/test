@@ -15,9 +15,6 @@
     <script src="panicButton.js"></script> <!-- Include panicButton.js -->
 </head>
 <body>
-    <!-- Particles JS Background -->
-    <div id="particles-js"></div>
-
     <!-- Top Bar -->
     <div class="top-bar">
         <a id="homeTab" href="index.html">Home</a>
@@ -27,7 +24,48 @@
         <a id="settingsTab" href="settings.html">Settings</a>
         
     </div>
+    
 
+    <div id="particles-js"></div>
+    <!-- Page Content Below -->
+    <img id="userPhoto" class="animated rubberBand fast" src="icons/logo.png" alt="Your Name's Photo">
+    <h1 class="animated jello game_title">Eli's Unblocked Games</h1>
+    
+    <div class="centered-container">
+        <img src="https://visit-counter.vercel.app/counter.png?page=https%3A%2F%2Fplaygamez.github.io%2Fbruno%2F&s=40&c=ffffff&bg=00000000&no=6&ff=karla&tb=Visit+Counter%3A+&ta=" alt="Visit Counter:">
+    </div>
+    
+    <script src="particles.js/particles.min.js"></script>
+    <script>
+        particlesJS.load('particles-js', 'particles.js/particles.json', function() {
+            console.log('particles.js loaded');
+        });
+    </script>
+    
+    <div id="countdown"></div>
+    <script>
+        function countdownTimer() {
+            const countDownDate = new Date("Mar 16, 2025 14:25:00").getTime();
+            const now = new Date().getTime();
+            const distance = countDownDate - now;
+    
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    
+            document.getElementById("countdown").innerHTML = 
+                "Spring Break Countdown: " + days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+    
+            if (distance < 0) {
+                clearInterval(timer);
+                document.getElementById("countdown").innerHTML = "Spring Break is Here!";
+            }
+        }
+        
+        const timer = setInterval(countdownTimer, 1000);
+    </script>
+    
     <!-- Disclaimer -->
     <div class="disclaimer" style="text-align: center; margin: 10px 0; color: rgb(85, 85, 85);">
         The panic button (from the settings) will not work when in the movie. (just close the tab atp)
@@ -48,13 +86,7 @@
         <a id="a quiet place day one" class="link" href="https://drive.google.com/file/d/1YEt3ZJoK6SeV0CjH6vVJJvoKQ6oyStpE/preview" target="_blank"><span class="bar"></span><img src="./icons/quietplace.webp"><b>A Quiet Place - Day 1</b></a>
     </div>
 
-    <!-- Particles JS -->
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script>
-        particlesJS.load('particles-js', 'particles.json', function() {
-            console.log('particles.js loaded');
-        });
-    </script>
+
 
     <!-- Panic Button Script -->
     <script>
