@@ -624,11 +624,12 @@ h6 {
     color: #E6E6E6;
 }
 
-.review-form input, .review-form textarea {
+.review-form input[type="text"], .review-form textarea {
+    display: block;
     width: 80%;
     max-width: 600px;
     padding: 10px;
-    margin: 10px 0;
+    margin: 10px auto;
     border: 1px solid #ccc;
     border-radius: 5px;
     background-color: #1C1C1C;
@@ -643,6 +644,8 @@ h6 {
     color: #fff;
     cursor: pointer;
     transition: .2s;
+    display: block;
+    margin: 10px auto;
 }
 
 .review-form button:hover {
@@ -675,7 +678,7 @@ h6 {
     animation: fadeIn 0.5s;
 }
 
-.review .like-button {
+.review .like-button, .review .delete-button {
     cursor: pointer;
     color: #ccc;
     margin-left: 10px;
