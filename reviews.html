@@ -260,5 +260,21 @@
                 displayReviews();
             }
         });
+
+        // Function to show delete buttons when delete mode is enabled
+        function updateDeleteButtons() {
+            const deleteButtons = document.querySelectorAll('.delete-button');
+            deleteButtons.forEach(button => {
+                button.style.display = isDeleteMode ? 'inline' : 'none';
+            });
+        }
+
+        // Call updateDeleteButtons when delete mode is toggled
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Delete') {
+                isDeleteMode = !isDeleteMode;
+                updateDeleteButtons();
+            }
+        });
     });
 </script>

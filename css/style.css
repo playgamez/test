@@ -716,3 +716,11 @@ h6 {
     font-size: 1.2em;
     display: none;
 }
+
+/* Highlight only the active tab */
+.tab-highlight {
+    background-color: #353535;
+    color: #fff;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
