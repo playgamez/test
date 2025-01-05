@@ -4,6 +4,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
     <title>Movies | Schoology</title>
+    <link rel="icon" type="image/x-icon" href="./icons/schoology2.png">
+    <meta property="og:title" content="Play unblocked games online">
+    <meta property="og:description" content="SCHOOLOGY">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karla:400,700&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
     <link rel="stylesheet" href="css/style.css">
@@ -12,13 +15,17 @@
     <script src="panicButton.js"></script> <!-- Include panicButton.js -->
 </head>
 <body>
+    <!-- Particles JS Background -->
+    <div id="particles-js"></div>
+
     <!-- Top Bar -->
     <div class="top-bar">
         <a id="homeTab" href="index.html">Home</a>
         <a id="gamesTab" href="games.html">Games</a>
         <a id="proxyTab" href="#proxy">Proxy</a>
-        <a id="settingsTab" href="settings.html">Settings</a>
         <a id="movieTab" class="active" href="movie.html">Movies</a>
+        <a id="settingsTab" href="settings.html">Settings</a>
+        
     </div>
 
     <!-- Disclaimer -->
@@ -31,10 +38,14 @@
         <input type="text" id="search" class="search" placeholder="Search for a movie...">
     </div>
 
+    <div class="centered-container">
+        <button id="gamesuggest" onclick="window.open('https://manatee.schoology.com/user/109332883/blog/post/7599267851', '_blank')">Suggest Movies Here!</button>
+    </div>
+
     <!-- Movie Container -->
     <div class="movie-container">
         <a id="red one" class="link" href="https://drive.google.com/file/d/1QQx9ogqUJzS3G8GIZXLBAhgx2s2Ol2zZ/preview" target="_blank"><span class="bar"></span><img src="./icons/redone.webp"><b>Red One</b></a>
-        <a id="quiet place" class="link" href="https://drive.google.com/file/d/1YEt3ZJoK6SeV0CjH6vVJJvoKQ6oyStpE/preview" target="_blank"><span class="bar"></span><img src="./icons/quietplace.webp"><b>A Quiet Place - Day 1</b></a>
+        <a id="a quiet place day one" class="link" href="https://drive.google.com/file/d/1YEt3ZJoK6SeV0CjH6vVJJvoKQ6oyStpE/preview" target="_blank"><span class="bar"></span><img src="./icons/quietplace.webp"><b>A Quiet Place - Day 1</b></a>
     </div>
 
     <!-- Particles JS -->

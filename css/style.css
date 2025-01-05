@@ -593,8 +593,18 @@ h6 {
     left: 0px;
 }
 
+.movie-container a.link b {
+    z-index: 5;
+    position: relative;
+}
+
 .movie-container a.link:hover .bar {
     height: 40px;
+}
+
+.movie-container a.link:hover b {
+    display: block;
+    color: white; /* Ensure the text is visible against the black box */
 }
 
 .movie-container a.link:hover {
