@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <title>Chat | Schoology</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://kit.fontawesome.com/d0c5025972.js" crossorigin="anonymous"></script>
+    <meta name="theme-color" content="var(--bgColor)">
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <a id="homeTab" href="index.html">Home</a>
+        <a id="gamesTab" href="games.html">Games</a>
+        <a id="proxyTab" href="#proxy">Proxy</a>
+        <a id="settingsTab" href="settings.html">Settings</a>
+        <a id="chatTab" class="active" href="chat.html">Chat</a>
+    </div>
+
+    <!-- Chat Container -->
+    <div class="chat-container">
+        <div id="messages"></div>
+        <div class="input-container">
+            <input type="text" id="chatInput" placeholder="Type a message...">
+            <button id="sendButton">Send</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const messagesContainer = document.getElementById('messages');
+            const chatInput = document.getElementById('chatInput');
+            const sendButton = document.getElementById('sendButton');
+
+            sendButton.addEventListener('click', sendMessage);
+            chatInput.addEventListener('keypress', function(event) {
+                if (event.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+
+            function sendMessage() {
+                const messageText = chatInput.value.trim();
+                if (messageText !== '') {
+                    const messageElement = document.createElement('div');
+                    messageElement.classList.add('message');
+
+                    const messageContent = document.createElement('span');
+                    messageContent.textContent = messageText;
+
+                    const messageTime = document.createElement('span');
+                    messageTime.classList.add('message-time');
+                    messageTime.textContent = new Date().toLocaleTimeString();
+
+                    const likeButton = document.createElement('span');
+                    likeButton.classList.add('like-button');
+                    likeButton.innerHTML = '<i class="fa fa-thumbs-up"></i>';
+                    likeButton.addEventListener('click', function() {
+                        this.style.color = 'green';
+                    });
+
+                    messageElement.appendChild(messageContent);
+                    messageElement.appendChild(messageTime);
+                    messageElement.appendChild(likeButton);
+
+                    messagesContainer.appendChild(messageElement);
+                    chatInput.value = '';
+                    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

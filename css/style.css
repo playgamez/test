@@ -505,3 +505,67 @@ h6 {
     text-align: center;
 }
 
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 80vh;
+    margin: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+}
+
+#messages {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 10px;
+}
+
+.input-container {
+    display: flex;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+}
+
+#chatInput {
+    flex: 1;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+#sendButton {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+}
+
+#sendButton:hover {
+    background-color: #0056b3;
+}
+
+.message {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.message-time {
+    font-size: 12px;
+    color: gray;
+    margin-left: 10px;
+}
+
+.like-button {
+    cursor: pointer;
+    color: #007bff;
+}
