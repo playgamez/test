@@ -187,6 +187,7 @@
         </form>
     </div>
 
+    
     <!-- Reviews Container -->
     <div class="reviews-container">
         <h2 class="animated jello game_title">User Reviews</h2>
@@ -396,6 +397,42 @@
                 }
             });
         });
+
+        document.addEventListener('DOMContentLoaded', function() {
+    const devCodeInput = document.getElementById('devCodeInput');
+    const deleteNotification = document.getElementById('deleteNotification');
+
+    devCodeInput.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            const enteredCode = devCodeInput.value.toLowerCase();
+            if (enteredCode === 'del') {
+                isDeleteMode = true;
+                deleteNotification.style.display = 'block';
+                updateDeleteButtons();
+                alert('Developer mode activated. Delete buttons are now visible.');
+            } else {
+                alert('Invalid code. Try again.');
+            }
+        }
+    });
+
+    // Existing functions to update delete buttons and toggle delete mode
+    function updateDeleteButtons() {
+        const deleteButtons = document.querySelectorAll('.delete-button');
+        deleteButtons.forEach(button => {
+            button.style.display = isDeleteMode ? 'inline' : 'none';
+        });
+    }
+    
+    let isDeleteMode = false;
+    const toggleDeleteModeButton = document.getElementById('toggleDeleteMode');
+    toggleDeleteModeButton.addEventListener('click', function() {
+        isDeleteMode = !isDeleteMode;
+        deleteNotification.style.display = isDeleteMode ? 'block' : 'none';
+        updateDeleteButtons();
+    });
+});
+
     </script>
 </body>
 </html>
