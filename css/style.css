@@ -706,10 +706,13 @@ h6 {
     }
 }
 
-/* Highlight only the active tab */
-.tab-highlight {
-    background-color: #353535;
-    color: #fff;
+.delete-notification {
+    background-color: #ffcc00;
+    color: #000;
+    padding: 10px;
     border-radius: 5px;
-    padding: 5px 10px;
+    margin: 10px;
+    text-align: center;
+    font-size: 1.2em;
+    display: none;
 }
