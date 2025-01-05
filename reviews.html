@@ -29,6 +29,11 @@
 
     </div>
 
+     <!-- Delete Mode Notification -->
+     <div id="deleteNotification" class="delete-notification" style="display: none;">
+        Delete Mode is ON. Press 'd e l e t e' again to turn it OFF.
+    </div>
+
   <div class="review-form">
           <h1 class="animated jello game_title">Leave a Review</h1>
           <form id="reviewForm">
@@ -237,19 +242,21 @@
                 });
             }
 
-            // Enable delete mode when "d e l e t e" is typed
-            let deleteCode = "";
-            document.addEventListener('keydown', function(event) {
-                deleteCode += event.key.toLowerCase();
-                if (deleteCode.length > 7) {
-                    deleteCode = deleteCode.slice(-7); // Keep the last 7 characters
-                }
-                if (deleteCode === "d e l e t e") {
-                    isDeleteMode = !isDeleteMode;
-                    displayReviews();
-                }
-            });
-        });
-    </script>
-</body>
-</html>
+         // Enable delete mode when "d e l e t e" is typed
+             let deleteCode = "";
+             const deleteNotification = document.getElementById('deleteNotification');
+             document.addEventListener('keydown', function(event) {
+                 deleteCode += event.key.toLowerCase();
+                 if (deleteCode.length > 7) {
+                     deleteCode = deleteCode.slice(-7); // Keep the last 7 characters
+                 }
+                 if (deleteCode === "d e l e t e") {
+                     isDeleteMode = !isDeleteMode;
+                     deleteNotification.style.display = isDeleteMode ? 'block' : 'none';
+                     displayReviews();
+                 }
+             });
+         });
+     </script>
+ </body>
+ </html>

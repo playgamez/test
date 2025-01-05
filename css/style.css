@@ -688,6 +688,15 @@ h6 {
     color: #00bb00;
 }
 
+.review .delete-button {
+    display: none;
+    color: #FF0000;
+}
+
+.review .delete-button.show {
+    display: inline;
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -695,4 +704,12 @@ h6 {
     to {
         opacity: 1;
     }
+}
+
+/* Highlight only the active tab */
+.tab-highlight {
+    background-color: #353535;
+    color: #fff;
+    border-radius: 5px;
+    padding: 5px 10px;
 }
