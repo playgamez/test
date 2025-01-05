@@ -7,12 +7,10 @@
     <link rel="icon" type="image/x-icon" href="./icons/schoology2.png">
     <meta property="og:title" content="Play unblocked games online">
     <meta property="og:description" content="SCHOOLOGY">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karla:400,700&display=swap">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
     <link rel="stylesheet" href="css/style.css">
     <script src="https://kit.fontawesome.com/d0c5025972.js" crossorigin="anonymous"></script>
     <meta name="theme-color" content="var(--bgColor)">
-    <script src="panicButton.js"></script>
+    <script src="panicButton.js"></script> <!-- Include panicButton.js -->
 </head>
 <body>
     <!-- Particles JS Background -->
@@ -24,48 +22,47 @@
         <a id="gamesTab" href="games.html">Games</a>
         <a id="proxyTab" href="#proxy">Proxy</a>
         <a id="movieTab" href="movie.html">Movies</a>
-        <a id="reviewsTab" class="active" href="reviews.html">Reviews</a>
+        <a id="reviewsTab" class="tab-highlight" href="reviews.html">Reviews</a>
         <a id="settingsTab" href="settings.html">Settings</a>
-
     </div>
 
-     <!-- Delete Mode Notification -->
-     <div id="deleteNotification" class="delete-notification" style="display: none;">
+    <!-- Delete Mode Notification -->
+    <div id="deleteNotification" class="delete-notification">
         Delete Mode is ON. Press 'd e l e t e' again to turn it OFF.
     </div>
 
-  <div class="review-form">
-          <h1 class="animated jello game_title">Leave a Review</h1>
-          <form id="reviewForm">
-              <input type="text" id="name" placeholder="Your Name" required>
-              <textarea id="review" placeholder="Your Review" required></textarea>
-              <div class="star-rating">
-                  <span class="fa fa-star" data-rating="1"></span>
-                  <span class="fa fa-star" data-rating="2"></span>
-                  <span class="fa fa-star" data-rating="3"></span>
-                  <span class="fa fa-star" data-rating="4"></span>
-                  <span class="fa fa-star" data-rating="5"></span>
-              </div>
-              <input type="hidden" id="rating" value="0">
-              <button type="submit" class="button">Submit Review</button>
-          </form>
-      </div>
-  
-      <!-- Reviews Container -->
-      <div class="reviews-container">
-          <h2 class="animated jello game_title">User Reviews</h2>
-          <div id="reviewsList"></div>
-      </div>
-  
-      <!-- Particles JS -->
-      <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-      <script>
-          particlesJS.load('particles-js', 'particles.json', function() {
-              console.log('particles.js loaded');
-          });
-      </script>
-  
-      <!-- Panic Button Script -->
+    <!-- Review Form -->
+    <div class="review-form">
+        <h1 class="animated jello game_title">Leave a Review</h1>
+        <form id="reviewForm">
+            <input type="text" id="name" placeholder="Your Name" required>
+            <textarea id="review" placeholder="Your Review" required></textarea>
+            <div class="star-rating">
+                <span class="fa fa-star" data-rating="1"></span>
+                <span class="fa fa-star" data-rating="2"></span>
+                <span class="fa fa-star" data-rating="3"></span>
+                <span class="fa fa-star" data-rating="4"></span>
+                <span class="fa fa-star" data-rating="5"></span>
+            </div>
+            <input type="hidden" id="rating" value="0">
+            <button type="submit" class="button">Submit Review</button>
+        </form>
+    </div>
+
+    <!-- Reviews Container -->
+    <div class="reviews-container">
+        <h2 class="animated jello game_title">User Reviews</h2>
+        <div id="reviewsList"></div>
+    </div>
+
+    <!-- Particles JS -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        particlesJS.load('particles-js', 'particles.json', function() {
+            console.log('particles.js loaded');
+        });
+    </script>
+
     <!-- Panic Button Script -->
     <script>
         // Load the saved panic button key from localStorage
@@ -81,63 +78,61 @@
         });
     </script>
 
-  
-      <!-- Mask Option Handling Script -->
-      <script>
-          // Load the saved option from localStorage
-          const savedOption = localStorage.getItem('selectedMaskOption');
-          if (savedOption) {
-              const maskDropdown = document.getElementById('maskDropdown');
-              if (maskDropdown) {
-                  maskDropdown.value = savedOption;
-  
-                  const selectedOption = maskDropdown.options[maskDropdown.selectedIndex];
-                  const newTitle = selectedOption.getAttribute('data-title');
-                  const newIcon = selectedOption.getAttribute('data-icon');
-  
-                  // Change the title and favicon based on the saved option
-                  document.title = newTitle;
-                  const favicon = document.querySelector("link[rel='icon']");
-                  favicon.href = newIcon;
-              } else {
-                  // Fallback if maskDropdown doesn't exist on this page
-                  const maskDropdownFallback = document.createElement('select');
-                  maskDropdownFallback.innerHTML = `
-                      <option value="schoology" data-title="Schoology" data-icon="./icons/schoology2.png">Schoology</option>
-                      <option value="focus" data-title="Portal" data-icon="./icons/focus.png">Focus</option>
-                  `;
-                  const savedOptionElement = Array.from(maskDropdownFallback.options).find(option => option.value === savedOption);
-                  if (savedOptionElement) {
-                      document.title = savedOptionElement.getAttribute('data-title');
-                      const favicon = document.querySelector("link[rel='icon']");
-                      favicon.href = savedOptionElement.getAttribute('data-icon');
-                  }
-              }
-          }
-  
-          // Change the title and favicon based on dropdown selection
-          const maskDropdown = document.getElementById('maskDropdown');
-          if (maskDropdown) {
-              maskDropdown.addEventListener('change', function() {
-                  const selectedOption = maskDropdown.options[maskDropdown.selectedIndex];
-                  const newTitle = selectedOption.getAttribute('data-title');
-                  const newIcon = selectedOption.getAttribute('data-icon');
-  
-                  // Change the title
-                  document.title = newTitle;
-  
-                  // Change the favicon
-                  const favicon = document.querySelector("link[rel='icon']");
-                  favicon.href = newIcon;
-  
-                  // Save the selected option to localStorage
-                  localStorage.setItem('selectedMaskOption', maskDropdown.value);
-              });
-          }
-      </script>
-  
-      <!-- Review Form and Review Handling Script -->
-          <!-- Review Form and Review Handling Script -->
+    <!-- Mask Option Handling Script -->
+    <script>
+        // Load the saved option from localStorage
+        const savedOption = localStorage.getItem('selectedMaskOption');
+        if (savedOption) {
+            const maskDropdown = document.getElementById('maskDropdown');
+            if (maskDropdown) {
+                maskDropdown.value = savedOption;
+
+                const selectedOption = maskDropdown.options[maskDropdown.selectedIndex];
+                const newTitle = selectedOption.getAttribute('data-title');
+                const newIcon = selectedOption.getAttribute('data-icon');
+
+                // Change the title and favicon based on the saved option
+                document.title = newTitle;
+                const favicon = document.querySelector("link[rel='icon']");
+                favicon.href = newIcon;
+            } else {
+                // Fallback if maskDropdown doesn't exist on this page
+                const maskDropdownFallback = document.createElement('select');
+                maskDropdownFallback.innerHTML = `
+                    <option value="schoology" data-title="Schoology" data-icon="./icons/schoology2.png">Schoology</option>
+                    <option value="focus" data-title="Portal" data-icon="./icons/focus.png">Focus</option>
+                `;
+                const savedOptionElement = Array.from(maskDropdownFallback.options).find(option => option.value === savedOption);
+                if (savedOptionElement) {
+                    document.title = savedOptionElement.getAttribute('data-title');
+                    const favicon = document.querySelector("link[rel='icon']");
+                    favicon.href = savedOptionElement.getAttribute('data-icon');
+                }
+            }
+        }
+
+        // Change the title and favicon based on dropdown selection
+        const maskDropdown = document.getElementById('maskDropdown');
+        if (maskDropdown) {
+            maskDropdown.addEventListener('change', function() {
+                const selectedOption = maskDropdown.options[maskDropdown.selectedIndex];
+                const newTitle = selectedOption.getAttribute('data-title');
+                const newIcon = selectedOption.getAttribute('data-icon');
+
+                // Change the title
+                document.title = newTitle;
+
+                // Change the favicon
+                const favicon = document.querySelector("link[rel='icon']");
+                favicon.href = newIcon;
+
+                // Save the selected option to localStorage
+                localStorage.setItem('selectedMaskOption', maskDropdown.value);
+            });
+        }
+    </script>
+
+    <!-- Review Form and Review Handling Script -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const reviewForm = document.getElementById('reviewForm');
@@ -221,8 +216,8 @@
                 return html;
             }
 
-            // Add event listeners to like buttons
-            function addLikeButtonListeners() {
+                // Add event listeners to like buttons
+                function addLikeButtonListeners() {
                 const likeButtons = document.querySelectorAll('.like-button');
                 likeButtons.forEach(button => {
                     button.addEventListener('click', function() {
