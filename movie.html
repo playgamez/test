@@ -4,6 +4,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="UTF-8">
     <title>Movies | Schoology</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karla:400,700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
     <link rel="stylesheet" href="css/style.css">
     <script src="https://kit.fontawesome.com/d0c5025972.js" crossorigin="anonymous"></script>
     <meta name="theme-color" content="var(--bgColor)">
@@ -19,8 +21,8 @@
     </div>
 
     <!-- Disclaimer -->
-    <div class="disclaimer" style="text-align: center; margin: 10px 0; color: rgb(85, 85, 85);">
-        The panic button (from the settings) will not work when in the movie. (just close the tab atp)
+    <div class="disclaimer">
+        Please note: The panic button will not work when in the movie.
     </div>
 
     <!-- Search Bar -->
@@ -29,9 +31,12 @@
     </div>
 
     <!-- Movie Container -->
-    <div class="movie-container">
-        <a id="red one" class="link" href="https://drive.google.com/file/d/1QQx9ogqUJzS3G8GIZXLBAhgx2s2Ol2zZ/preview" target="_blank"><span class="bar"></span><img src="./icons/redone.webp"><b>Red One</b></a>
-        <a id="quiet place" class="link" href="https://drive.google.com/file/d/1YEt3ZJoK6SeV0CjH6vVJJvoKQ6oyStpE/preview" target="_blank"><span class="bar"></span><img src="./icons/quietplace.webp"><b>A Quiet Place - Day 1</b></a>
+    <div id="moviesCategory" class="category-container">
+        <h2 class="animated jello game_title">Movies:</h2>
+        <div class="movie-container">
+            <a id="Movie1" class="link" href="https://drive.google.com/file/d/YOUR_FILE_ID/preview" target="_blank"><span class="bar"></span><img src="./icons/movie1.webp"><b>Movie Title 1</b> <span class="badge"><i class="fa-solid fa-star"></i> Suggested by User</span></a>
+            <a id="Movie2" class="link" href="https://drive.google.com/file/d/YOUR_FILE_ID/preview" target="_blank"><span class="bar"></span><img src="./icons/movie2.webp"><b>Movie Title 2</b> <span class="badge"><i class="fa-solid fa-star"></i> Suggested by User</span></a>
+        </div>
     </div>
 
     <!-- Particles JS -->
