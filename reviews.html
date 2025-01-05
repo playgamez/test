@@ -144,12 +144,7 @@
             display: none;
         }
 
-        .tab-highlight {
-            background-color: #353535;
-            color: #fff;
-            border-radius: 5px;
-            padding: 5px 10px;
-        }
+
     </style>
 </head>
 <body>
@@ -162,7 +157,7 @@
         <a id="gamesTab" href="games.html">Games</a>
         <a id="proxyTab" href="#proxy">Proxy</a>
         <a id="movieTab" href="movie.html">Movies</a>
-        <a id="reviewsTab" class="tab-highlight" href="reviews.html">Reviews</a>
+        <a id="reviewsTab" href="reviews.html">Reviews</a>
         <a id="settingsTab" href="settings.html">Settings</a>
     </div>
 
@@ -171,7 +166,7 @@
 
     <!-- Delete Mode Notification -->
     <div id="deleteNotification" class="delete-notification">
-        Delete Mode is ON. Press 'd e l e t e' again to turn it OFF.
+        Delete Mode is ON.
     </div>
 
     <!-- Review Form -->
@@ -256,6 +251,37 @@
                 });
             });
 
+                   // Load the saved option from localStorage
+                   const savedOption = localStorage.getItem('selectedMaskOption');
+            if (savedOption) {
+                const maskDropdown = document.getElementById('maskDropdown');
+                if (maskDropdown) {
+                    maskDropdown.value = savedOption;
+
+                    const selectedOption = maskDropdown.options[maskDropdown.selectedIndex];
+                    const newTitle = selectedOption.getAttribute('data-title');
+                    const newIcon = selectedOption.getAttribute('data-icon');
+
+                    // Change the title and favicon based on the saved option
+                    document.title = newTitle;
+                    const favicon = document.querySelector("link[rel='icon']");
+                    favicon.href = newIcon;
+                } else {
+                    // Fallback if maskDropdown doesn't exist on this page
+                    const maskDropdownFallback = document.createElement('select');
+                    maskDropdownFallback.innerHTML = `
+                        <option value="schoology" data-title="Schoology" data-icon="./icons/schoology2.png">Schoology</option>
+                        <option value="focus" data-title="Portal" data-icon="./icons/focus.png">Focus</option>
+                    `;
+                    const savedOptionElement = Array.from(maskDropdownFallback.options).find(option => option.value === savedOption);
+                    if (savedOptionElement) {
+                        document.title = savedOptionElement.getAttribute('data-title');
+                        const favicon = document.querySelector("link[rel='icon']");
+                        favicon.href = savedOptionElement.getAttribute('data-icon');
+                    }
+                }
+            }
+            
             // Handle form submission
             reviewForm.addEventListener('submit', function(event) {
                 event.preventDefault();
