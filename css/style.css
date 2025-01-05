@@ -724,3 +724,36 @@ h6 {
     border-radius: 5px;
     padding: 5px 10px;
 }
+
+.dev-code-setting {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font);
+    color: var(--accentColor);
+    margin-top: 20px;
+}
+
+.dev-code-setting label {
+    margin-bottom: 10px;
+}
+
+.dev-code-setting input {
+    width: 30px;
+    text-align: center;
+    border: 1px solid #353535;
+    border-radius: 5px;
+    background-color: #292929;
+    color: #fff;
+    padding: 5px;
+    font-size: 16px;
+    font-family: var(--font);
+}
+
+.pdev-code-setting input:hover, .dev-code-setting input:focus {
+    filter: brightness(95%);
+    box-shadow: none;
+    outline: none;
+    border-color: #00bb00; /* Hover/focus color */
+}

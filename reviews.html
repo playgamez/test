@@ -162,12 +162,11 @@
     </div>
 
     <!-- Toggle Delete Mode Button -->
-    <button id="toggleDeleteMode" class="button">Toggle Delete Mode</button>
+    <button id="toggleDeleteMode" class="button" style="display: none;"> Delete Mode</button>
 
-    <!-- Delete Mode Notification -->
-    <div id="deleteNotification" class="delete-notification">
-        Delete Mode is ON.
-    </div>
+    <div id="deleteNotification" class="delete-notification" style="display: none;">
+            Delete Mode is ON. 
+        </div>
 
     <!-- Review Form -->
     <div class="review-form">
@@ -199,6 +198,33 @@
     <script>
         particlesJS.load('particles-js', 'particles.json', function() {
             console.log('particles.js loaded');
+        });
+    </script>
+
+  <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggleDeleteModeButton = document.getElementById('toggleDeleteMode');
+            const deleteNotification = document.getElementById('deleteNotification');
+
+            // Check for developer mode flag in localStorage
+            const developerMode = localStorage.getItem('developerMode');
+            if (developerMode === 'true') {
+                toggleDeleteModeButton.style.display = 'block';
+            }
+
+            function updateDeleteButtons() {
+                const deleteButtons = document.querySelectorAll('.delete-button');
+                deleteButtons.forEach(button => {
+                    button.style.display = isDeleteMode ? 'inline' : 'none';
+                });
+            }
+
+            let isDeleteMode = false;
+            toggleDeleteModeButton.addEventListener('click', function() {
+                isDeleteMode = !isDeleteMode;
+                deleteNotification.style.display = isDeleteMode ? 'block' : 'none';
+                updateDeleteButtons();
+            });
         });
     </script>
 
