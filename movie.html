@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <title>Movies | Schoology</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://kit.fontawesome.com/d0c5025972.js" crossorigin="anonymous"></script>
+    <meta name="theme-color" content="var(--bgColor)">
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <a id="homeTab" href="index.html">Home</a>
+        <a id="gamesTab" href="games.html">Games</a>
+        <a id="proxyTab" href="#proxy">Proxy</a>
+        <a id="settingsTab" href="settings.html">Settings</a>
+        <a id="movieTab" class="active" href="movie.html">Movies</a>
+    </div>
+
+    <!-- Disclaimer -->
+    <div class="disclaimer" style="text-align: center; margin: 10px 0; color: red;">
+        The panic button (from the settings) will not work when in the movie. (just close the tab atp)
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-bar">
+        <input type="text" id="search" placeholder="Search for a movie...">
+    </div>
+
+    <!-- Movie Container -->
+    <div class="movie-container">
+        <a id="Movie1" class="link" href="https://drive.google.com/file/d/YOUR_FILE_ID/preview" target="_blank"><span class="bar"></span><img src="./icons/movie1.webp"><b>Movie Title 1</b> <span class="badge"><i class="fa-solid fa-star"></i> Suggested by User</span></a>
+        <a id="Movie2" class="link" href="https://drive.google.com/file/d/YOUR_FILE_ID/preview" target="_blank"><span class="bar"></span><img src="./icons/movie2.webp"><b>Movie Title 2</b> <span class="badge"><i class="fa-solid fa-star"></i> Suggested by User</span></a>
+    </div>
+
+    <!-- Particles JS -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        particlesJS.load('particles-js', 'particles.json', function() {
+            console.log('particles.js loaded');
+        });
+    </script>
+
+    <!-- Panic Button Script -->
+    <script>
+        // Load the saved panic button key from localStorage
+        const savedPanicKey = localStorage.getItem('panicButtonKey') || '`';
+
+        // Add a keydown event listener for the panic button
+        document.addEventListener('keydown', function(event) {
+            if (event.key === savedPanicKey) {
+                window.location.href = 'https://manatee.schoology.com/home';
+            }
+        });
+    </script>
+
+    <!-- Mask Option Handling Script -->
+    <script>
+        // Load the saved option from localStorage
+        const savedOption = localStorage.getItem('selectedMaskOption');
+        if (savedOption) {
+            const maskDropdown = document.getElementById('maskDropdown');
+            if (maskDropdown) {
+                maskDropdown.value = savedOption;
+
+                const selectedOption = maskDropdown.options[maskDropdown.selectedIndex];
+                const newTitle = selectedOption.getAttribute('data-title');
+                const newIcon = selectedOption.getAttribute('data-icon');
+
+                // Change the title and favicon based on the saved option
+                document.title = newTitle;
+                const favicon = document.querySelector("link[rel='icon']");
+                favicon.href = newIcon;
+            } else {
+                // Fallback if maskDropdown doesn't exist on this page
+                const maskDropdownFallback = document.createElement('select');
+                maskDropdownFallback.innerHTML = `
+                    <option value="schoology" data-title="Schoology" data-icon="./icons/schoology2.png">Schoology</option>
+                    <option value="focus" data-title="Portal" data-icon="./icons/focus.png">Focus</option>
+                `;
+                const savedOptionElement = Array.from(maskDropdownFallback.options).find(option => option.value === savedOption);
+                if (savedOptionElement) {
+                    document.title = savedOptionElement.getAttribute('data-title');
+                    const favicon = document.querySelector("link[rel='icon']");
+                    favicon.href = savedOptionElement.getAttribute('data-icon');
+                }
+            }
+        }
+
+        // Change the title and favicon based on dropdown selection
+        const maskDropdown = document.getElementById('maskDropdown');
+        if (maskDropdown) {
+            maskDropdown.addEventListener('change', function() {
+                const selectedOption = maskDropdown.options[maskDropdown.selectedIndex];
+                const newTitle = selectedOption.getAttribute('data-title');
+                const newIcon = selectedOption.getAttribute('data-icon');
+
+                // Change the title
+                document.title = newTitle;
+
+                // Change the favicon
+                const favicon = document.querySelector("link[rel='icon']");
+                favicon.href = newIcon;
+
+                // Save the selected option to localStorage
+                localStorage.setItem('selectedMaskOption', maskDropdown.value);
+            });
+        }
+    </script>
+
+    <!-- Search and Filter Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('search');
+            const movieLinks = document.querySelectorAll('.link');
+
+            searchInput.addEventListener('keyup', function(event) {
+                const query = searchInput.value.toLowerCase();
+
+                movieLinks.forEach(function(link) {
+                    const movieTitle = link.querySelector('b').textContent.toLowerCase();
+                    if (movieTitle.includes(query)) {
+                        link.style.display = 'block';
+                    } else {
+                        link.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
