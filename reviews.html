@@ -202,6 +202,7 @@
             });
             addLikeButtonListeners();
             addDeleteButtonListeners();
+            updateDeleteButtons(); // Ensure delete buttons are updated on initial load
         }
 
         // Generate star rating HTML
@@ -243,6 +244,14 @@
             });
         }
 
+        // Function to update delete buttons visibility
+        function updateDeleteButtons() {
+            const deleteButtons = document.querySelectorAll('.delete-button');
+            deleteButtons.forEach(button => {
+                button.style.display = isDeleteMode ? 'inline' : 'none';
+            });
+        }
+
         // Enable delete mode when "d e l e t e" is typed
         let deleteCode = "";
         const deleteNotification = document.getElementById('deleteNotification');
@@ -257,18 +266,32 @@
                 isDeleteMode = !isDeleteMode;
                 deleteNotification.style.display = isDeleteMode ? 'block' : 'none';
                 console.log('Delete mode: ', isDeleteMode);
-                displayReviews();
+                updateDeleteButtons(); // Update delete buttons visibility
             }
         });
 
-        // Function to show delete buttons when delete mode is enabled
+        
+        // Function to update delete buttons visibility
         function updateDeleteButtons() {
             const deleteButtons = document.querySelectorAll('.delete-button');
             deleteButtons.forEach(button => {
                 button.style.display = isDeleteMode ? 'inline' : 'none';
             });
         }
-
+        
+        // Add event listeners to delete buttons
+        function addDeleteButtonListeners() {
+            const deleteButtons = document.querySelectorAll('.delete-button');
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const index = this.getAttribute('data-index');
+                    reviews.splice(index, 1);
+                    localStorage.setItem('reviews', JSON.stringify(reviews));
+                    displayReviews();
+                });
+            });
+        }
+        
         // Call updateDeleteButtons when delete mode is toggled
         document.addEventListener('keydown', function(event) {
             if (event.key === 'Delete') {
