@@ -504,32 +504,10 @@ h6 {
     margin-bottom: 10px;
     text-align: center;
 }
-
-
-
 .disclaimer {
     text-align: center;
     margin: 10px 0;
-    color: rgb(90, 90, 90);
-}
-
-.search-bar {
-    text-align: center;
-    margin: 20px;
-}
-
-.search-bar input {
-    padding: 10px;
-    width: 80%;
-    max-width: 600px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.disclaimer {
-    text-align: center;
-    margin: 10px 0;
-    color: red;
+    color: rgb(85, 85, 85);
 }
 
 .search-bar {
@@ -549,6 +527,7 @@ h6 {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    gap: 10px;
 }
 
 .movie-category {
@@ -622,4 +601,9 @@ h6 {
     filter: brightness(95%);
     translate: 0 1px;
     box-shadow: none;
+}
+
+.centered-container {
+    display: flex;
+    justify-content: center;
 }
