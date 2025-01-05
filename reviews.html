@@ -11,6 +11,28 @@
     <script src="https://kit.fontawesome.com/d0c5025972.js" crossorigin="anonymous"></script>
     <meta name="theme-color" content="var(--bgColor)">
     <script src="panicButton.js"></script> <!-- Include panicButton.js -->
+
+    <!-- Firebase App (the core Firebase SDK) -->
+    <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-app.js"></script>
+
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-database.js"></script>
+    <script>
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDlmJ6xkhZ0EeHP89OkQhvgiQp7oFA8vyo",
+            authDomain: "reviews-playgamez.firebaseapp.com",
+            projectId: "reviews-playgamez",
+            storageBucket: "reviews-playgamez.appspot.com",
+            messagingSenderId: "797570756984",
+            appId: "1:797570756984:web:e7d30e710c22216fab188d",
+            measurementId: "G-04QCKSGP03"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+    </script>
 </head>
 <body>
     <!-- Particles JS Background -->
@@ -26,14 +48,13 @@
         <a id="settingsTab" href="settings.html">Settings</a>
     </div>
 
- <!-- Toggle Delete Mode Button -->
-<button id="toggleDeleteMode" class="button">Toggle Delete Mode</button>
+    <!-- Toggle Delete Mode Button -->
+    <button id="toggleDeleteMode" class="button">Toggle Delete Mode</button>
 
-<!-- Delete Mode Notification -->
-<div id="deleteNotification" class="delete-notification">
-    Delete Mode is ON. Press 'd e l e t e' again to turn it OFF.
-</div>
-
+    <!-- Delete Mode Notification -->
+    <div id="deleteNotification" class="delete-notification">
+        Delete Mode is ON. Press 'd e l e t e' again to turn it OFF.
+    </div>
 
     <!-- Review Form -->
     <div class="review-form">
@@ -67,88 +88,19 @@
         });
     </script>
 
-    <!-- Panic Button Script -->
-    <script>
-        // Load the saved panic button key from localStorage
-        const savedPanicKey = localStorage.getItem('panicButtonKey') || '`';
-        console.log('Saved Panic Key:', savedPanicKey);
-
-        // Add a keydown event listener for the panic button
-        document.addEventListener('keydown', function(event) {
-            console.log('Panic Key Pressed:', event.key);
-            if (event.key === savedPanicKey) {
-                window.location.href = 'https://manatee.schoology.com/home';
-            }
-        });
-    </script>
-
-    <!-- Mask Option Handling Script -->
-    <script>
-        // Load the saved option from localStorage
-        const savedOption = localStorage.getItem('selectedMaskOption');
-        if (savedOption) {
-            const maskDropdown = document.getElementById('maskDropdown');
-            if (maskDropdown) {
-                maskDropdown.value = savedOption;
-
-                const selectedOption = maskDropdown.options[maskDropdown.selectedIndex];
-                const newTitle = selectedOption.getAttribute('data-title');
-                const newIcon = selectedOption.getAttribute('data-icon');
-
-                // Change the title and favicon based on the saved option
-                document.title = newTitle;
-                const favicon = document.querySelector("link[rel='icon']");
-                favicon.href = newIcon;
-            } else {
-                // Fallback if maskDropdown doesn't exist on this page
-                const maskDropdownFallback = document.createElement('select');
-                maskDropdownFallback.innerHTML = `
-                    <option value="schoology" data-title="Schoology" data-icon="./icons/schoology2.png">Schoology</option>
-                    <option value="focus" data-title="Portal" data-icon="./icons/focus.png">Focus</option>
-                `;
-                const savedOptionElement = Array.from(maskDropdownFallback.options).find(option => option.value === savedOption);
-                if (savedOptionElement) {
-                    document.title = savedOptionElement.getAttribute('data-title');
-                    const favicon = document.querySelector("link[rel='icon']");
-                    favicon.href = savedOptionElement.getAttribute('data-icon');
-                }
-            }
-        }
-
-        // Change the title and favicon based on dropdown selection
-        const maskDropdown = document.getElementById('maskDropdown');
-        if (maskDropdown) {
-            maskDropdown.addEventListener('change', function() {
-                const selectedOption = maskDropdown.options[maskDropdown.selectedIndex];
-                const newTitle = selectedOption.getAttribute('data-title');
-                const newIcon = selectedOption.getAttribute('data-icon');
-
-                // Change the title
-                document.title = newTitle;
-
-                // Change the favicon
-                const favicon = document.querySelector("link[rel='icon']");
-                favicon.href = newIcon;
-
-                // Save the selected option to localStorage
-                localStorage.setItem('selectedMaskOption', maskDropdown.value);
-            });
-        }
-    </script>
-
-    <!-- Review Form and Review Handling Script -->
-    <!-- Review Form and Review Handling Script -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const reviewForm = document.getElementById('reviewForm');
         const reviewsList = document.getElementById('reviewsList');
         const stars = document.querySelectorAll('.star-rating .fa-star');
-        const toggleDeleteModeButton = document.getElementById('toggleDeleteMode'); // Get the toggle button
+        const toggleDeleteModeButton = document.getElementById('toggleDeleteMode');
         let isDeleteMode = false;
 
-        // Load reviews from localStorage
-        let reviews = JSON.parse(localStorage.getItem('reviews')) || [];
-        displayReviews();
+        // Listen for reviews changes
+        database.ref('reviews').on('value', (snapshot) => {
+            const reviews = snapshot.val() || [];
+            displayReviews(reviews);
+        });
 
         // Star rating functionality
         stars.forEach(star => {
@@ -178,17 +130,16 @@
 
             const reviewObject = { name, review, rating, likes: 0, date };
 
-            reviews.unshift(reviewObject); // Add new review to the top
-            localStorage.setItem('reviews', JSON.stringify(reviews));
-            displayReviews();
+            // Add new review to Firebase
+            database.ref('reviews').push(reviewObject);
             reviewForm.reset();
             stars.forEach(star => star.classList.remove('checked'));
         });
 
-        // Display reviews
-        function displayReviews() {
+        function displayReviews(reviews) {
             reviewsList.innerHTML = '';
-            reviews.forEach((review, index) => {
+            Object.keys(reviews).forEach((key) => {
+                const review = reviews[key];
                 const reviewDiv = document.createElement('div');
                 reviewDiv.className = 'review';
                 reviewDiv.innerHTML = `
@@ -199,18 +150,17 @@
                     </div>
                     <div>
                         <span>${review.date}</span>
-                        <span class="like-button" data-index="${index}"><i class="fa fa-thumbs-up"></i> ${review.likes}</span>
-                        <span class="delete-button" data-index="${index}" style="display: none;"><i class="fa fa-times"></i></span> <!-- Ensure delete button is initially hidden -->
+                        <span class="like-button" data-key="${key}"><i class="fa fa-thumbs-up"></i> ${review.likes}</span>
+                        <span class="delete-button" data-key="${key}" style="display: none;"><i class="fa fa-times"></i></span>
                     </div>
                 `;
                 reviewsList.prepend(reviewDiv);
             });
             addLikeButtonListeners();
             addDeleteButtonListeners();
-            updateDeleteButtons(); // Ensure delete buttons are updated on initial load
+            updateDeleteButtons();
         }
 
-        // Generate star rating HTML
         function getStarRatingHTML(rating) {
             let html = '';
             for (let i = 1; i <= 5; i++) {
@@ -223,66 +173,55 @@
             return html;
         }
 
-        // Add event listeners to like buttons
         function addLikeButtonListeners() {
             const likeButtons = document.querySelectorAll('.like-button');
             likeButtons.forEach(button => {
                 button.addEventListener('click', function() {
-                    const index = this.getAttribute('data-index');
-                    reviews[index].likes++;
-                    localStorage.setItem('reviews', JSON.stringify(reviews));
-                    displayReviews();
+                    const key = this.getAttribute('data-key');
+                    database.ref('reviews/' + key + '/likes').transaction((likes) => {
+                        return (likes || 0) + 1;
+                    });
                 });
             });
         }
 
-        // Add event listeners to delete buttons
         function addDeleteButtonListeners() {
             const deleteButtons = document.querySelectorAll('.delete-button');
             deleteButtons.forEach(button => {
                 button.addEventListener('click', function() {
-                    const index = this.getAttribute('data-index');
-                    reviews.splice(index, 1);
-                    localStorage.setItem('reviews', JSON.stringify(reviews));
-                    displayReviews();
+                    const key = this.getAttribute('data-key');
+                    database.ref('reviews/' + key).remove();
                 });
             });
         }
 
-        // Function to update delete buttons visibility
         function updateDeleteButtons() {
             const deleteButtons = document.querySelectorAll('.delete-button');
-            console.log('Updating delete buttons visibility. Delete mode:', isDeleteMode);
             deleteButtons.forEach(button => {
-                console.log('Setting delete button visibility:', isDeleteMode ? 'inline' : 'none');
                 button.style.display = isDeleteMode ? 'inline' : 'none';
             });
         }
 
-        // Toggle delete mode when the button is clicked
         toggleDeleteModeButton.addEventListener('click', function() {
             isDeleteMode = !isDeleteMode;
             deleteNotification.style.display = isDeleteMode ? 'block' : 'none';
             updateDeleteButtons();
-            console.log('Delete mode toggled via button. Delete mode:', isDeleteMode);
         });
 
-        // Enable delete mode when "d e l e t e" is typed
         let deleteCode = "";
         const deleteNotification = document.getElementById('deleteNotification');
         document.addEventListener('keydown', function(event) {
-            console.log('Key pressed: ', event.key);
             deleteCode += event.key.toLowerCase();
-            console.log('Current deleteCode: ', deleteCode);
             if (deleteCode.length > 7) {
-                deleteCode = deleteCode.slice(-7); // Keep the last 7 characters
+                deleteCode = deleteCode.slice(-7);
             }
             if (deleteCode === "d e l e t e") {
                 isDeleteMode = !isDeleteMode;
                 deleteNotification.style.display = isDeleteMode ? 'block' : 'none';
-                console.log('Delete mode: ', isDeleteMode);
-                updateDeleteButtons(); // Update delete buttons visibility
+                updateDeleteButtons();
             }
         });
     });
 </script>
+</body>
+</html>
