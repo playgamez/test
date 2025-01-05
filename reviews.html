@@ -26,10 +26,14 @@
         <a id="settingsTab" href="settings.html">Settings</a>
     </div>
 
-    <!-- Delete Mode Notification -->
-    <div id="deleteNotification" class="delete-notification">
-        Delete Mode is ON. Press 'd e l e t e' again to turn it OFF.
-    </div>
+ <!-- Toggle Delete Mode Button -->
+<button id="toggleDeleteMode" class="button">Toggle Delete Mode</button>
+
+<!-- Delete Mode Notification -->
+<div id="deleteNotification" class="delete-notification">
+    Delete Mode is ON. Press 'd e l e t e' again to turn it OFF.
+</div>
+
 
     <!-- Review Form -->
     <div class="review-form">
@@ -139,6 +143,7 @@
         const reviewForm = document.getElementById('reviewForm');
         const reviewsList = document.getElementById('reviewsList');
         const stars = document.querySelectorAll('.star-rating .fa-star');
+        const toggleDeleteModeButton = document.getElementById('toggleDeleteMode'); // Get the toggle button
         let isDeleteMode = false;
 
         // Load reviews from localStorage
@@ -195,7 +200,7 @@
                     <div>
                         <span>${review.date}</span>
                         <span class="like-button" data-index="${index}"><i class="fa fa-thumbs-up"></i> ${review.likes}</span>
-                        <span class="delete-button" data-index="${index}" style="display: ${isDeleteMode ? 'inline' : 'none'};"><i class="fa fa-times"></i></span>
+                        <span class="delete-button" data-index="${index}" style="display: none;"><i class="fa fa-times"></i></span> <!-- Ensure delete button is initially hidden -->
                     </div>
                 `;
                 reviewsList.prepend(reviewDiv);
@@ -247,10 +252,20 @@
         // Function to update delete buttons visibility
         function updateDeleteButtons() {
             const deleteButtons = document.querySelectorAll('.delete-button');
+            console.log('Updating delete buttons visibility. Delete mode:', isDeleteMode);
             deleteButtons.forEach(button => {
+                console.log('Setting delete button visibility:', isDeleteMode ? 'inline' : 'none');
                 button.style.display = isDeleteMode ? 'inline' : 'none';
             });
         }
+
+        // Toggle delete mode when the button is clicked
+        toggleDeleteModeButton.addEventListener('click', function() {
+            isDeleteMode = !isDeleteMode;
+            deleteNotification.style.display = isDeleteMode ? 'block' : 'none';
+            updateDeleteButtons();
+            console.log('Delete mode toggled via button. Delete mode:', isDeleteMode);
+        });
 
         // Enable delete mode when "d e l e t e" is typed
         let deleteCode = "";
@@ -267,36 +282,6 @@
                 deleteNotification.style.display = isDeleteMode ? 'block' : 'none';
                 console.log('Delete mode: ', isDeleteMode);
                 updateDeleteButtons(); // Update delete buttons visibility
-            }
-        });
-
-        
-        // Function to update delete buttons visibility
-        function updateDeleteButtons() {
-            const deleteButtons = document.querySelectorAll('.delete-button');
-            deleteButtons.forEach(button => {
-                button.style.display = isDeleteMode ? 'inline' : 'none';
-            });
-        }
-        
-        // Add event listeners to delete buttons
-        function addDeleteButtonListeners() {
-            const deleteButtons = document.querySelectorAll('.delete-button');
-            deleteButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const index = this.getAttribute('data-index');
-                    reviews.splice(index, 1);
-                    localStorage.setItem('reviews', JSON.stringify(reviews));
-                    displayReviews();
-                });
-            });
-        }
-        
-        // Call updateDeleteButtons when delete mode is toggled
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Delete') {
-                isDeleteMode = !isDeleteMode;
-                updateDeleteButtons();
             }
         });
     });
