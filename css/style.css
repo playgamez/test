@@ -405,12 +405,21 @@ h6 {
     font-size: 1.5em;
     margin-bottom: 10px; /* Adjusts the size and margin for game titles */
 }
-/* Centering Settings */
-.centered-dropdown {
+/* Centered Settings Styling */
+/* Mask Dropdown Styling */
+.mask-dropdown {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 20px;
+    justify-content: center;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.mask-dropdown label {
+    margin-right: 10px;
+    font-family: var(--font);
+    color: var(--accentColor);
 }
 
 /* Dropdown styling */
@@ -444,32 +453,19 @@ h6 {
     border-color: #00bb00; /* Hover/focus color */
 }
 
-/* Mask Dropdown Styling */
-.mask-dropdown {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.mask-dropdown label {
-    margin-right: 10px;
-    font-family: var(--font);
-    color: var(--accentColor);
-}
-
 /* Panic Button Setting Styling */
 .panic-button-setting {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
     font-family: var(--font);
     color: var(--accentColor);
     margin-top: 20px;
 }
 
 .panic-button-setting label {
-    margin-right: 10px;
+    margin-bottom: 10px;
 }
 
 .panic-button-setting input {
@@ -490,3 +486,22 @@ h6 {
     outline: none;
     border-color: #00bb00; /* Hover/focus color */
 }
+
+/* Centered Settings Styling */
+.centered-dropdown {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* Section Headings */
+.settings-heading {
+    font-family: var(--font);
+    color: var(--accentColor);
+    font-size: 24px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
