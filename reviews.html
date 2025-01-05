@@ -14,8 +14,6 @@
 
     <!-- Firebase App (the core Firebase SDK) -->
     <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-app.js"></script>
-
-    <!-- Add Firebase products that you want to use -->
     <script src="https://www.gstatic.com/firebasejs/9.1.0/firebase-database.js"></script>
     <script>
         const firebaseConfig = {
@@ -33,6 +31,128 @@
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
     </script>
+    <style>
+        /* Spinner CSS */
+        .spinner {
+            border: 4px solid rgba(0,0,0,0.1);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border-left-color: #09f;
+            animation: spin 1s linear infinite;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .review-form, .reviews-container {
+            text-align: center;
+            margin: 20px;
+            color: #E6E6E6;
+        }
+
+        .review-form input[type="text"], .review-form textarea {
+            display: block;
+            width: 80%;
+            max-width: 600px;
+            padding: 10px;
+            margin: 10px auto;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #1C1C1C;
+            color: #E6E6E6;
+        }
+
+        .review-form button {
+            background-color: #292929;
+            border: 1px solid #353535;
+            border-radius: 5px;
+            box-shadow: 0px 0px 4px rgba(0,0,0,0.5);
+            color: #fff;
+            cursor: pointer;
+            transition: .2s;
+            display: block;
+            margin: 10px auto;
+        }
+
+        .review-form button:hover {
+            filter: brightness(95%);
+            box-shadow: none;
+        }
+
+        .star-rating {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .star-rating .fa-star {
+            cursor: pointer;
+            font-size: 2em;
+            color: #ccc;
+        }
+
+        .star-rating .fa-star.checked {
+            color: #ffcc00;
+        }
+
+        .review {
+            background-color: #292929;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+            box-shadow: 0px 0px 4px rgba(0,0,0,0.5);
+            animation: fadeIn 0.5s;
+        }
+
+        .review .like-button, .review .delete-button {
+            cursor: pointer;
+            color: #ccc;
+            margin-left: 10px;
+        }
+
+        .review .like-button.liked {
+            color: #00bb00;
+        }
+
+        .review .delete-button {
+            display: none;
+            color: #FF0000;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .delete-notification {
+            background-color: #ffcc00;
+            color: #000;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px;
+            text-align: center;
+            font-size: 1.2em;
+            display: none;
+        }
+
+        /* Highlight only the active tab */
+        .tab-highlight {
+            background-color: #353535;
+            color: #fff;
+            border-radius: 5px;
+            padding: 5px 10px;
+        }
+    </style>
 </head>
 <body>
     <!-- Particles JS Background -->
@@ -62,12 +182,12 @@
         <form id="reviewForm">
             <input type="text" id="name" placeholder="Your Name" required>
             <textarea id="review" placeholder="Your Review" required></textarea>
-            <div class="star-rating">
-                <span class="fa fa-star" data-rating="1"></span>
-                <span class="fa fa-star" data-rating="2"></span>
-                <span class="fa fa-star" data-rating="3"></span>
-                <span class="fa fa-star" data-rating="4"></span>
-                <span class="fa fa-star" data-rating="5"></span>
+            <div class="star-rating" aria-label="Star rating">
+                <span class="fa fa-star" data-rating="1" role="button" tabindex="0"></span>
+                <span class="fa fa-star" data-rating="2" role="button" tabindex="0"></span>
+                <span class="fa fa-star" data-rating="3" role="button" tabindex="0"></span>
+                <span class="fa fa-star" data-rating="4" role="button" tabindex="0"></span>
+                <span class="fa fa-star" data-rating="5" role="button" tabindex="0"></span>
             </div>
             <input type="hidden" id="rating" value="0">
             <button type="submit" class="button">Submit Review</button>
@@ -96,10 +216,29 @@
             const toggleDeleteModeButton = document.getElementById('toggleDeleteMode');
             let isDeleteMode = false;
 
-            // Listen for reviews changes
+            // Loading spinner
+            const loadingSpinner = document.createElement('div');
+            loadingSpinner.className = 'spinner';
+            document.body.appendChild(loadingSpinner);
+
+            function showSpinner() {
+                loadingSpinner.style.display = 'block';
+            }
+
+            function hideSpinner() {
+                loadingSpinner.style.display = 'none';
+            }
+
+            // Show spinner when waiting for Firebase operations
+            showSpinner();
             database.ref('reviews').on('value', (snapshot) => {
+                hideSpinner();
                 const reviews = snapshot.val() || {};
                 displayReviews(reviews);
+            }, (error) => {
+                hideSpinner();
+                console.error('Error loading reviews:', error);
+                alert('Failed to load reviews.');
             });
 
             // Star rating functionality
@@ -110,6 +249,11 @@
                     stars.forEach(s => s.classList.remove('checked'));
                     for (let i = 0; i < rating; i++) {
                         stars[i].classList.add('checked');
+                    }
+                });
+                star.addEventListener('keydown', function(event) {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                        star.click();
                     }
                 });
             });
@@ -131,9 +275,15 @@
                 const reviewObject = { name, review, rating, likes: 0, date };
 
                 // Add new review to Firebase
-                database.ref('reviews').push(reviewObject);
-                reviewForm.reset();
-                stars.forEach(star => star.classList.remove('checked'));
+                database.ref('reviews').push(reviewObject, (error) => {
+                    if (error) {
+                        console.error('Error adding review:', error);
+                        alert('Failed to add review.');
+                    } else {
+                        reviewForm.reset();
+                        stars.forEach(star => star.classList.remove('checked'));
+                    }
+                });
             });
 
             function displayReviews(reviews) {
