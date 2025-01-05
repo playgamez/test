@@ -133,133 +133,132 @@
     </script>
 
     <!-- Review Form and Review Handling Script -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const reviewForm = document.getElementById('reviewForm');
-            const reviewsList = document.getElementById('reviewsList');
-            const stars = document.querySelectorAll('.star-rating .fa-star');
-            let isDeleteMode = false;
+    <!-- Review Form and Review Handling Script -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const reviewForm = document.getElementById('reviewForm');
+        const reviewsList = document.getElementById('reviewsList');
+        const stars = document.querySelectorAll('.star-rating .fa-star');
+        let isDeleteMode = false;
 
-            // Load reviews from localStorage
-            let reviews = JSON.parse(localStorage.getItem('reviews')) || [];
-            displayReviews();
+        // Load reviews from localStorage
+        let reviews = JSON.parse(localStorage.getItem('reviews')) || [];
+        displayReviews();
 
-            // Star rating functionality
-            stars.forEach(star => {
-                star.addEventListener('click', function() {
-                    const rating = this.getAttribute('data-rating');
-                    document.getElementById('rating').value = rating;
-                    stars.forEach(s => s.classList.remove('checked'));
-                    for (let i = 0; i < rating; i++) {
-                        stars[i].classList.add('checked');
-                    }
-                });
-            });
-
-            // Handle form submission
-            reviewForm.addEventListener('submit', function(event) {
-                event.preventDefault();
-                const name = document.getElementById('name').value;
-                const review = document.getElementById('review').value;
-                const rating = document.getElementById('rating').value;
-                const date = new Date().toLocaleDateString("en-US");
-
-                // Input validation
-                if (name.trim() === '' || review.trim() === '' || rating === '0') {
-                    alert('Please complete all fields and select a rating.');
-                    return;
-                }
-
-                const reviewObject = { name, review, rating, likes: 0, date };
-
-                reviews.unshift(reviewObject); // Add new review to the top
-                localStorage.setItem('reviews', JSON.stringify(reviews));
-                displayReviews();
-                reviewForm.reset();
-                stars.forEach(star => star.classList.remove('checked'));
-            });
-
-            // Display reviews
-            function displayReviews() {
-                reviewsList.innerHTML = '';
-                reviews.forEach((review, index) => {
-                    const reviewDiv = document.createElement('div');
-                    reviewDiv.className = 'review';
-                    reviewDiv.innerHTML = `
-                        <h3>${review.name}</h3>
-                        <p>${review.review}</p>
-                        <div class="star-rating">
-                            ${getStarRatingHTML(review.rating)}
-                        </div>
-                        <div>
-                            <span>${review.date}</span>
-                            <span class="like-button" data-index="${index}"><i class="fa fa-thumbs-up"></i> ${review.likes}</span>
-                            <span class="delete-button" data-index="${index}" style="display: ${isDeleteMode ? 'inline' : 'none'};"><i class="fa fa-times"></span>
-                        </div>
-                    `;
-                    reviewsList.prepend(reviewDiv);
-                });
-                addLikeButtonListeners();
-                addDeleteButtonListeners();
-            }
-
-            // Generate star rating HTML
-            function getStarRatingHTML(rating) {
-                let html = '';
-                for (let i = 1; i <= 5; i++) {
-                    if (i <= rating) {
-                        html += `<span class="fa fa-star checked"></span>`;
-                    } else {
-                        html += `<span class="fa fa-star"></span>`;
-                    }
-                }
-                return html;
-            }
-
-                // Add event listeners to like buttons
-                function addLikeButtonListeners() {
-                const likeButtons = document.querySelectorAll('.like-button');
-                likeButtons.forEach(button => {
-                    button.addEventListener('click', function() {
-                        const index = this.getAttribute('data-index');
-                        reviews[index].likes++;
-                        localStorage.setItem('reviews', JSON.stringify(reviews));
-                        displayReviews();
-                    });
-                });
-            }
-
-            // Add event listeners to delete buttons
-            function addDeleteButtonListeners() {
-                const deleteButtons = document.querySelectorAll('.delete-button');
-                deleteButtons.forEach(button => {
-                    button.addEventListener('click', function() {
-                        const index = this.getAttribute('data-index');
-                        reviews.splice(index, 1);
-                        localStorage.setItem('reviews', JSON.stringify(reviews));
-                        displayReviews();
-                    });
-                });
-            }
-
-            // Enable delete mode when "d e l e t e" is typed
-            let deleteCode = "";
-            const deleteNotification = document.getElementById('deleteNotification');
-            document.addEventListener('keydown', function(event) {
-                console.log('Key pressed: ', event.key);
-                deleteCode += event.key.toLowerCase();
-                console.log('Current deleteCode: ', deleteCode);
-                if (deleteCode.length > 7) {
-                    deleteCode = deleteCode.slice(-7); // Keep the last 7 characters
-                }
-                if (deleteCode === "d e l e t e") {
-                    isDeleteMode = !isDeleteMode;
-                    deleteNotification.style.display = isDeleteMode ? 'block' : 'none';
-                    console.log('Delete mode: ', isDeleteMode);
-                    displayReviews();
+        // Star rating functionality
+        stars.forEach(star => {
+            star.addEventListener('click', function() {
+                const rating = this.getAttribute('data-rating');
+                document.getElementById('rating').value = rating;
+                stars.forEach(s => s.classList.remove('checked'));
+                for (let i = 0; i < rating; i++) {
+                    stars[i].classList.add('checked');
                 }
             });
         });
-    </script>
-</body>
-</html>
+
+        // Handle form submission
+        reviewForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const review = document.getElementById('review').value;
+            const rating = document.getElementById('rating').value;
+            const date = new Date().toLocaleDateString("en-US");
+
+            // Input validation
+            if (name.trim() === '' || review.trim() === '' || rating === '0') {
+                alert('Please complete all fields and select a rating.');
+                return;
+            }
+
+            const reviewObject = { name, review, rating, likes: 0, date };
+
+            reviews.unshift(reviewObject); // Add new review to the top
+            localStorage.setItem('reviews', JSON.stringify(reviews));
+            displayReviews();
+            reviewForm.reset();
+            stars.forEach(star => star.classList.remove('checked'));
+        });
+
+        // Display reviews
+        function displayReviews() {
+            reviewsList.innerHTML = '';
+            reviews.forEach((review, index) => {
+                const reviewDiv = document.createElement('div');
+                reviewDiv.className = 'review';
+                reviewDiv.innerHTML = `
+                    <h3>${review.name}</h3>
+                    <p>${review.review}</p>
+                    <div class="star-rating">
+                        ${getStarRatingHTML(review.rating)}
+                    </div>
+                    <div>
+                        <span>${review.date}</span>
+                        <span class="like-button" data-index="${index}"><i class="fa fa-thumbs-up"></i> ${review.likes}</span>
+                        <span class="delete-button" data-index="${index}" style="display: ${isDeleteMode ? 'inline' : 'none'};"><i class="fa fa-times"></i></span>
+                    </div>
+                `;
+                reviewsList.prepend(reviewDiv);
+            });
+            addLikeButtonListeners();
+            addDeleteButtonListeners();
+        }
+
+        // Generate star rating HTML
+        function getStarRatingHTML(rating) {
+            let html = '';
+            for (let i = 1; i <= 5; i++) {
+                if (i <= rating) {
+                    html += `<span class="fa fa-star checked"></span>`;
+                } else {
+                    html += `<span class="fa fa-star"></span>`;
+                }
+            }
+            return html;
+        }
+
+        // Add event listeners to like buttons
+        function addLikeButtonListeners() {
+            const likeButtons = document.querySelectorAll('.like-button');
+            likeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const index = this.getAttribute('data-index');
+                    reviews[index].likes++;
+                    localStorage.setItem('reviews', JSON.stringify(reviews));
+                    displayReviews();
+                });
+            });
+        }
+
+        // Add event listeners to delete buttons
+        function addDeleteButtonListeners() {
+            const deleteButtons = document.querySelectorAll('.delete-button');
+            deleteButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const index = this.getAttribute('data-index');
+                    reviews.splice(index, 1);
+                    localStorage.setItem('reviews', JSON.stringify(reviews));
+                    displayReviews();
+                });
+            });
+        }
+
+        // Enable delete mode when "d e l e t e" is typed
+        let deleteCode = "";
+        const deleteNotification = document.getElementById('deleteNotification');
+        document.addEventListener('keydown', function(event) {
+            console.log('Key pressed: ', event.key);
+            deleteCode += event.key.toLowerCase();
+            console.log('Current deleteCode: ', deleteCode);
+            if (deleteCode.length > 7) {
+                deleteCode = deleteCode.slice(-7); // Keep the last 7 characters
+            }
+            if (deleteCode === "d e l e t e") {
+                isDeleteMode = !isDeleteMode;
+                deleteNotification.style.display = isDeleteMode ? 'block' : 'none';
+                console.log('Delete mode: ', isDeleteMode);
+                displayReviews();
+            }
+        });
+    });
+</script>
